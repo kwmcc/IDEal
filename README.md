@@ -5,6 +5,8 @@ A Collaborative IDE project at UCSC
 IDEal is a collaborative, web-based IDE built on the web2py framework and featuring strong Google integration 
 including Google Sign-in flow, saving with Drive, chat through Hangouts, and synchronization with Google's Realtime API.
 
+IDEal is being built at the University of California Santa Cruz by students in CMPS 183 and CMPM 131.
+
 ## Where can I find IDEal?
 Simply go to [IDEal Github.io URL] and sign in to start using IDEal.
 
