@@ -1,29 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Mesh: A Sleek Code Editor</title>
-  <link rel="stylesheet" href="../static/css/reset.css" type="text/css">
-  <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-  <script src="../static/js/vendor/codemirror.js"></script>
-  <script src="../static/js/vendor/css.js"></script>
-  <script src="../static/js/vendor/htmlmixed.js"></script>
-  <script src="../static/js/vendor/xml.js"></script>
-  <script src="../static/js/vendor/javascript.js"></script>
-  <script src="../static/js/vendor/jquery.js"></script>
-  <script src="../static/js/vendor/jquery-ui.js"></script>
+<style type="text/css">
+.my_content_container a {
+    border-bottom: 1px solid #777777;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #333333;
+    border-top: 1px solid #000000;
+    color: #000000;
+    display: block;
+    height: 2.5em;
+    padding: 0 1em;
+    width: 5em;
+    text-decoration: none;
+}
+</style>
 
-  <script src="../static/js/app.js"></script>
-</head>
-<body class="cm-s-default">
-
-  <div id="controls">
-    <!-- <a class="button together button-on" onclick="TogetherJS(this); return false;" title="toggle collaboration"></a> -->
-    <a href="#" class="button lights" title="toggle the lights"></a>
-  </div>
-
-  <textarea id="html"></textarea>
-
-
-</body>
-</html>
+<div class="my_content_container">
+<a href="/ideal/default/ideal_editor">Go to ideal editor!</a>
+</div>
+{{=BEAUTIFY(response._vars)}}

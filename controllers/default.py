@@ -19,6 +19,11 @@ def index():
     response.flash = T("Hello World")
     return dict(message=T('Welcome to web2py!'))
 
+def ideal_editor():
+    """
+    This creates the ideal/default/ideal_editor page.
+    """
+    return dict(message=T('Welcome to web2py!'))
 
 def user():
     """
