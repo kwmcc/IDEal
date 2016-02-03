@@ -22,8 +22,7 @@ $(function() {
   var htmlBox = CodeMirror.fromTextArea(document.getElementById('html'), {
     lineNumbers: true,
     lineWrapping: true,
-    mode: 'xml',
-    htmlMode: true
+    mode: 'python'
   });
 
   /*==========  FIREBASE DATA FETCHING  ==========*/
