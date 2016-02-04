@@ -13,13 +13,13 @@ $(function() {
   /*==========  User's Cursor  ==========*/
 
   var position = {
-    html: { line: 0, ch: 0 },
+    python: { line: 0, ch: 0 },
   };
 
 
   /*==========  MESH CODE EDITOR BOXES  ==========*/
 
-  var htmlBox = CodeMirror.fromTextArea(document.getElementById('html'), {
+  var pythonBox = CodeMirror.fromTextArea(document.getElementById('python'), {
     lineNumbers: true,
     lineWrapping: true,
     mode: 'python'
@@ -33,9 +33,9 @@ $(function() {
     var content = snapshot.val();
     notifyFireBase = true;
 
-    htmlBox.setCursor({
-      line: position.html.line,
-      ch: position.html.ch
+    pythonBox.setCursor({
+      line: position.python.line,
+      ch: position.python.ch
     });
   });
 
@@ -43,43 +43,23 @@ $(function() {
   /*==========  CODE EVENT LISTENERS  ==========*/
 
   var sync = function() {
-    var htmlContent = htmlBox.getValue();
+    var pythonContent = pythonBox.getValue();
 
-    position.html   = htmlBox.getCursor();
+    position.python   = pythonBox.getCursor();
 
     appRef.set({
-      html: {
-        text: htmlContent
+      python: {
+        text: pythonContent
       },
     });
   };
 
-  htmlBox.on('change', function() {
+  pythonBox.on('change', function() {
    updatePreview();
     if (notifyFireBase) sync();
   });
 
 
-  /*==========  PREVIEW UPDATING  ==========*/
-
-//  var delay;
-//  var updatePreview = function() {
-//    clearTimeout(delay);
-//
-//    var update = function() {
-//      var previewFrame = document.getElementById('preview');
-//      var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
-//      preview.open();
-//      preview.write(getContent());
-//      preview.close();
-//    };
-//
-//    delay = setTimeout(update, 500);
-//  }
-//
-//  setInterval(updatePreview, 1000);
-//
-//
   /*==========  STYLING & DYNAMIC BOX SIZING  ==========*/
 
   $('.lights').click(function(el) {
