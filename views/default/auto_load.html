@@ -2,7 +2,6 @@
 
 <title>CodeMirror: Lazy Mode Loading Demo</title>
 <meta charset="utf-8"/>
-<!<link rel=stylesheet href="../static/css/docs.css">
 
 <link rel="stylesheet" href="../static/css/codemirror.css">
 <script src="../static/js/vendor/codemirror.js"></script>
@@ -20,7 +19,7 @@
 #  use the control below to load and apply a mode
   "you'll see the highlighting of" this text /*change*/.
 </textarea></form>
-<p>Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button onclick="change()">change mode</button></p>
+<p>Filename, mime, or mode name: <input type=text value={{=test_filename}} id=mode> </p>
 
     <script>
 CodeMirror.modeURL = "../static/js/vendor/%N.js";

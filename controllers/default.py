@@ -16,19 +16,27 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
-    return dict(message=T('Welcome to web2py!'))
+    form = SQLFORM(db.files)
+    if form.process().accepted:
+        name = form.vars.filename
+        redirect(URL('auto_load', vars=dict(name=name)))
+    return dict(form=form)
 
 def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
     """
-    return dict(message=T('Welcome to web2py!'))
+    return dict()
 
 def auto_load():
     """
     This creates the ideal/default/auto_load.html demo
     """
-    return dict(message=T('Welcome to web2py!'))
+    #import cgi
+    #x = request.vars
+    test_filename = 'test12345.js'
+    return locals()
+
 def user():
     """
     exposes:
