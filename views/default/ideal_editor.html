@@ -13,18 +13,28 @@
   <script src="../static/js/vendor/javascript.js"></script>
   <script src="../static/js/vendor/jquery.js"></script>
   <script src="../static/js/vendor/jquery-ui.js"></script>
-
   <script src="../static/js/app.js"></script>
-</head>
+  <script src="https://togetherjs.com/togetherjs-min.js"></script>
+  
+  </head>
 <body class="cm-s-default">
-
+  <button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
   <div id="controls">
     <!-- <a class="button together button-on" onclick="TogetherJS(this); return false;" title="toggle collaboration"></a> -->
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
-  <textarea id="python"></textarea>
-
+  <textarea id="html">nothing</textarea>  <!-- original text area -->
+  <textarea id="other"></textarea>        <!-- added a new text box, this one should be the collaborative one -->
+  <button id="auth">autho</button>
+   <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("other"), { //call the constructor on the "other" text area
+        lineNumbers: true, //enable line nr
+        tabSize: 3,        //default tab size
+        readOnly: false    //allow for editing
+      });
+      editor.setValue ("Hello World\nThis portion of text should be collaborative once togetherjs has been clicked.\n");
+   </script>
 
 </body>
 </html>
