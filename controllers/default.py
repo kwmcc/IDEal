@@ -32,10 +32,10 @@ def auto_load():
     """
     This creates the ideal/default/auto_load.html demo
     """
-    #import cgi
-    #x = request.vars
-    test_filename = 'test12345.js'
-    return locals()
+    import cgi
+    filename = request.vars
+    # test_filename = 'test12345.js'
+    return dict(filename=filename.get('name'))
 
 def user():
     """

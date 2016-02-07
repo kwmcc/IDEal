@@ -19,9 +19,12 @@
 #  use the control below to load and apply a mode
   "you'll see the highlighting of" this text /*change*/.
 </textarea></form>
-<p>Filename, mime, or mode name: <input type=text value={{=test_filename}} id=mode> </p>
+<p>Filename, mime, or mode name: <input type=text value={{=filename}} id=mode> </p> <button type=button onclick="change()">change mode</button></p>
 
     <script>
+window.onload = function() {
+  change();
+};
 CodeMirror.modeURL = "../static/js/vendor/%N.js";
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   lineNumbers: true
@@ -31,7 +34,7 @@ CodeMirror.on(modeInput, "keypress", function(e) {
   if (e.keyCode == 13) change();
 });
 function change() {
-  var val = modeInput.value, m, mode, spec;
+  var val = "{{=filename}}", m, mode, spec;
   if (m = /.+\.([^.]+)$/.exec(val)) {
     var info = CodeMirror.findModeByExtension(m[1]);
     if (info) {

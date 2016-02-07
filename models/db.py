@@ -91,6 +91,6 @@ auth.settings.reset_password_requires_verification = True
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
 db.define_table('files',
-    Field('filename', unique=True))
+    Field('filename', unique=False))
 
 db.files.filename.requires = IS_NOT_EMPTY()
