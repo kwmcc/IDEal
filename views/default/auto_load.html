@@ -19,19 +19,15 @@
 #  use the control below to load and apply a mode
   "you'll see the highlighting of" this text /*change*/.
 </textarea></form>
-<p>Filename, mime, or mode name: <input type=text value={{=filename}} id=mode> </p> <button type=button onclick="change()">change mode</button></p>
 
     <script>
+// This makes the change function execute upon loading the page.
 window.onload = function() {
   change();
 };
 CodeMirror.modeURL = "../static/js/vendor/%N.js";
 var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
   lineNumbers: true
-});
-var modeInput = document.getElementById("mode");
-CodeMirror.on(modeInput, "keypress", function(e) {
-  if (e.keyCode == 13) change();
 });
 function change() {
   var val = "{{=filename}}", m, mode, spec;

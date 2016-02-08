@@ -19,14 +19,15 @@ def index():
     form = SQLFORM(db.files)
     if form.process().accepted:
         name = form.vars.filename
-        redirect(URL('auto_load', vars=dict(name=name)))
+        redirect(URL('ideal_editor', vars=dict(name=name)))
     return dict(form=form)
 
 def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
     """
-    return dict()
+    filename = request.vars
+    return dict(filename=filename.get('name'))
 
 def auto_load():
     """

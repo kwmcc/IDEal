@@ -13,17 +13,54 @@ $(function() {
   /*==========  User's Cursor  ==========*/
 
   var position = {
-    python: { line: 0, ch: 0 },
+    editor: { line: 0, ch: 0 },
   };
 
 
-  /*==========  MESH CODE EDITOR BOXES  ==========*/
+  /*==========  MESH CODE EDITOR BOX  ==========*/
 
-  var pythonBox = CodeMirror.fromTextArea(document.getElementById('python'), {
+  var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     lineNumbers: true,
     lineWrapping: true,
-    mode: 'python'
+   // mode: 'python'
   });
+
+//  /*==========  MESH CODE EDITOR BOX  ==========*/
+//
+//  window.onload = function() {
+//    change();
+//  };
+//
+//
+//  CodeMirror.modeURL = "../static/js/vendor/%N.js";
+//
+//  function change() {
+//    var val = "{{=filename}}", m, mode, spec;
+//    if (m = /.+\.([^.]+)$/.exec(val)) {
+//      var info = CodeMirror.findModeByExtension(m[1]);
+//      if (info) {
+//        mode = info.mode;
+//        spec = info.mime;
+//      }
+//    } else if (/\//.test(val)) {
+//      var info = CodeMirror.findModeByMIME(val);
+//      if (info) {
+//        mode = info.mode;
+//        spec = val;
+//      }
+//    } else {
+//      mode = spec = val;
+//    }
+//    if (mode) {
+//      editor.setOption("mode", spec);
+//      CodeMirror.autoLoadMode(editor, mode);
+//      document.getElementById("modeinfo").textContent = spec;
+//    } else {
+//      alert("Could not find a mode corresponding to " + val);
+//    }
+//}
+
+
 
   /*==========  FIREBASE DATA FETCHING  ==========*/
 
@@ -33,9 +70,9 @@ $(function() {
     var content = snapshot.val();
     notifyFireBase = true;
 
-    pythonBox.setCursor({
-      line: position.python.line,
-      ch: position.python.ch
+    editor.setCursor({
+      line: position.editor.line,
+      ch: position.editor.ch
     });
   });
 
@@ -43,18 +80,18 @@ $(function() {
   /*==========  CODE EVENT LISTENERS  ==========*/
 
   var sync = function() {
-    var pythonContent = pythonBox.getValue();
+    var editorContent = editor.getValue();
 
-    position.python   = pythonBox.getCursor();
+    position.editor   = editor.getCursor();
 
     appRef.set({
-      python: {
-        text: pythonContent
+      editor: {
+        text: editorContent
       },
     });
   };
 
-  pythonBox.on('change', function() {
+  editor.on('change', function() {
    updatePreview();
     if (notifyFireBase) sync();
   });
