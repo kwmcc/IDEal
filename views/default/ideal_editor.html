@@ -4,7 +4,6 @@
   <title>Mesh: A Sleek Code Editor</title>
   <link rel="stylesheet" href="../static/css/reset.css" type="text/css">
   <link rel="stylesheet" href="../static/css/style.css" type="text/css">
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
   <script src="../static/js/vendor/codemirror.js"></script>
   <script src="../static/js/vendor/loadmode.js"></script>
   <script src="../static/js/vendor/meta.js"></script>
@@ -17,7 +16,6 @@
   <script src="../static/js/vendor/jquery.js"></script>
   <script src="../static/js/vendor/jquery-ui.js"></script>
 
-  <!script src="../static/js/app.js"><!/script>
 </head>
 <body class="cm-s-default">
 
@@ -33,7 +31,7 @@
 
 var $window = $(window);
 
-
+// Create Editor
 var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
     lineNumbers: true,
     lineWrapping: true,
@@ -45,6 +43,9 @@ window.onload = function() {
 };
 
 CodeMirror.modeURL = "../static/js/vendor/%N.js";
+
+// This parses the filename and sets the editor to the appropriate
+// mode.
 function change() {
   var val = "{{=filename}}", m, mode, spec;
   if (m = /.+\.([^.]+)$/.exec(val)) {

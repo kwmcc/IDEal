@@ -29,15 +29,6 @@ def ideal_editor():
     filename = request.vars
     return dict(filename=filename.get('name'))
 
-def auto_load():
-    """
-    This creates the ideal/default/auto_load.html demo
-    """
-    import cgi
-    filename = request.vars
-    # test_filename = 'test12345.js'
-    return dict(filename=filename.get('name'))
-
 def user():
     """
     exposes:

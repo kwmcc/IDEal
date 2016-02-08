@@ -1,5 +1,6 @@
 # Web2Py folders
 errors/
+sessions/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
