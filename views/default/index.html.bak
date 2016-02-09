@@ -1,3 +1,27 @@
-{{extend 'layout.html'}}
-<h1>This is the default/index.html template</h1>
-{{=BEAUTIFY(response._vars)}}
+<!DOCTYPE html>
+<head>
+    <title></title>
+    <LINK rel="stylesheet" type="text/css" href="../static/css/IDEal_styles.css" title="IDEal Styles" media="screen">
+    <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
+</head>
+<body>
+    <body bgcolor="#424242"></bgcolor>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <div class="centered">
+          <a href="/IDEal/default/project_init"><img src="/IDEal/static/templogo3.png" width="206px" height="97px" alt="Centered Image"/></a>
+          <div class="g-signin2" data-width="206px" data-onsuccess="onSignIn"></div>
+          <script>
+            function onSignIn(googleUser) {
+              var profile = googleUser.getBasicProfile();
+              console.log('ID: ' + profile.getId());
+              console.log('Name: ' + profile.getName());
+              console.log('Image URL: ' + profile.getImageUrl());
+              console.log('Email: ' + profile.getEmail());
+            }
+            var onSuccess = function(user) {
+                console.log('Signed in as ' + user.getBasicProfile().getName());
+                window.location.assign("IDEal/default/project_init");
+            };
+          </script>
+    </div>
+</body>
