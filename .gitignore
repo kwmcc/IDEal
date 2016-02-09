@@ -1,6 +1,8 @@
 # Web2Py folders
 errors/
 sessions/
+databases/
+*.bak
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
