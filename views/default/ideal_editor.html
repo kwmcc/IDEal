@@ -14,26 +14,111 @@
   <script src="../static/js/vendor/jquery.js"></script>
   <script src="../static/js/vendor/jquery-ui.js"></script>
   <script src="../static/js/app.js"></script>
-  <script src="https://togetherjs.com/togetherjs-min.js"></script>
-  
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <g:hangout render="createhangout"></g:hangout>
   </head>
 <body class="cm-s-default">
-  <button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
   <div id="controls">
     <!-- <a class="button together button-on" onclick="TogetherJS(this); return false;" title="toggle collaboration"></a> -->
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
-  <textarea id="html">nothing</textarea>  <!-- original text area -->
-  <textarea id="other"></textarea>        <!-- added a new text box, this one should be the collaborative one -->
-  <button id="auth">autho</button>
+  <textarea id="html">nothing</textarea>
+  <button id="auth_button">autho</button>
+  <textarea id="other"></textarea>
+  <!-- <textarea id="foobar"></textarea> -->
    <script>
-      var editor = CodeMirror.fromTextArea(document.getElementById("other"), { //call the constructor on the "other" text area
-        lineNumbers: true, //enable line nr
-        tabSize: 3,        //default tab size
-        readOnly: false    //allow for editing
+
+      //Realtime collaboration working with google login.
+      //Appearance still needs to be fixed and the data still has to be saved.
+      //However, the collaboration portion of it is complete
+
+
+      // call the codemirror constructor for the text area
+      var editor = CodeMirror.fromTextArea(document.getElementById('other'));
+
+      //Adds an onchange property to the editor.
+      //Sets the value of the collaborative string to what's on the editor
+      editor.on("change", function() {
+         if (collaborativeString != null) {
+            collaborativeString.setText(editor.getValue());
+         }
       });
-      editor.setValue ("Hello World\nThis portion of text should be collaborative once togetherjs has been clicked.\n");
+
+      ////////////////////////////////////////////////////////////////////////////////////////
+      var clientId = '396830091727-la37vcj6qrc5s9c0oeadivf1gm1su95u.apps.googleusercontent.com'
+      var realtimeUtils = new utils.RealtimeUtils({ clientId: clientId });
+      ////////////////////////////////////////////////////////////////////////////////////////
+
+      authorize();                     //Call the authorize function, prompts google login.
+      var collaborativeString = null;  //Initialize collaborative string
+
+      //Authorizes google login
+      function authorize() {
+         realtimeUtils.authorize(function(response){
+            if (response.error) {
+               var button = document.getElementById('auth_button');  
+               button.classList.add('visible');
+               button.addEventListener('click', function() {
+               realtimeUtils.authorize(function(response){
+                  start();
+                  }, true);
+               });
+            } else {
+               start();
+            }
+         }, false);
+      }
+
+      //Starts the realtime environment
+      function start() {
+        var id = realtimeUtils.getParam('id');
+        if (id) {
+            realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
+         } else {
+            realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
+               window.history.pushState(null, null, '?id=' + createResponse.id);
+               realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
+            });
+         }
+      }
+
+      //Sets the default collaborative string value
+      function onFileInitialize(model) {
+         var string = model.createString();
+         string.setText("#Welcome to Ideal\n");
+         model.getRoot().set('default', string);
+      }
+
+      //Sets the document to the default text value, adds event listeners for when the text is altered
+      function onFileLoaded(doc) {
+         collaborativeString = doc.getModel().getRoot().get('default');
+         wireTextBoxes(collaborativeString);
+         editor.setValue(collaborativeString.getText());
+         collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, sync);
+         collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_DELETED, sync);
+      }
+
+      /* This function binds the default text box, namely 'other' to the realtime string.
+       * it is important to note that we can not bind the codemirror text box, 'editor' to
+       * the collaborative string because it is an abstraction above a plain text box 
+       */
+      function wireTextBoxes(collaborativeString) {
+         var textArea1 = document.getElementById('other');
+         gapi.drive.realtime.databinding.bindString(collaborativeString, textArea1);
+      }
+
+      /* This function syncs the editor value with the collaborative string.
+       * If the collaborative string is edited (text inserted or text deleted),
+       * this function, sync(), is called which sets the editor's text to the 
+       * text of the collaborative string */
+      function sync() { 
+         var x = editor.getCursor();
+         editor.setValue(collaborativeString.getText());
+         editor.setCursor(x); 
+      }
    </script>
 
 </body>
