@@ -85,11 +85,6 @@ function change() {
     $(this).toggleClass('button-on');
   }).click();
 
-  $('#frame').animate({
-    'height': ($window.height() / 1.8),
-    'width': ($window.width() / 2)
-  }, 1000);
-
   var resizeBoxes = function() {
     var windowHeight = $(window).height();
     var windowWidth  = $(window).width();
