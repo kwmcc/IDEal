@@ -128,11 +128,6 @@
         $(this).toggleClass('button-on');
       }).click();
 
-      $('#frame').animate({
-        'height': ($window.height()),
-        'width': ($window.width())
-      }, 1000);
-
       var resizeBoxes = function() {
         var windowHeight = $(window).height();
         var windowWidth  = $(window).width();
@@ -143,7 +138,7 @@
         });
       };
 
-    //  resizeBoxes();
+      resizeBoxes();
 
       $window.resize(function() {
         resizeBoxes();
