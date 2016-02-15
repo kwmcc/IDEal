@@ -1,4 +1,0 @@
-<h2>Please enter filename to start IDEal</h2>
-{{=form}}
-
-{{=BEAUTIFY(response._vars)}}
