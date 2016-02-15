@@ -120,7 +120,39 @@
          editor.setValue(collaborativeString.getText());
          editor.setCursor(x); 
       }
-   </script>
+      /*==========  STYLING & DYNAMIC BOX SIZING  ==========*/
 
+      $('.lights').click(function(el) {
+        el.preventDefault();
+        $('.cm-s-default').toggleClass('cm-s-monokai');
+        $(this).toggleClass('button-on');
+      }).click();
+
+      $('#frame').animate({
+        'height': ($window.height()),
+        'width': ($window.width())
+      }, 1000);
+
+      var resizeBoxes = function() {
+        var windowHeight = $(window).height();
+        var windowWidth  = $(window).width();
+        $textBoxes = $('.CodeMirror');
+        $.each($textBoxes, function(idx, box) {
+          $(box).height(windowHeight);
+          $(box).width(windowWidth);
+        });
+      };
+
+    //  resizeBoxes();
+
+      $window.resize(function() {
+        resizeBoxes();
+      });
+
+      $('#frame').draggable().resizable({
+        handles: 'n, e, s, w, ne, se, sw, nw'
+      });
+
+</script>
 </body>
 </html>
