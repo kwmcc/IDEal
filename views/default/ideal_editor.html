@@ -25,7 +25,6 @@
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
-  <textarea id="html">nothing</textarea>
   <button id="auth_button">autho</button>
   <textarea id="other"></textarea>
   <!-- <textarea id="foobar"></textarea> -->
@@ -37,8 +36,10 @@
 
 
       // call the codemirror constructor for the text area
-      var editor = CodeMirror.fromTextArea(document.getElementById('other'));
-
+      var editor = CodeMirror.fromTextArea(document.getElementById('other'), {
+         lineNumbers: true,
+         lineWrapping: true,
+      });
       //Adds an onchange property to the editor.
       //Sets the value of the collaborative string to what's on the editor
       editor.on("change", function() {
