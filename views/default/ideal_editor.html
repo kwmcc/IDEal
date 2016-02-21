@@ -16,94 +16,181 @@
   <script src="../static/js/vendor/jquery.js"></script>
   <script src="../static/js/vendor/jquery-ui.js"></script>
 
-</head>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <g:hangout render="createhangout"></g:hangout>
+  </head>
 <body class="cm-s-default">
-
   <div id="controls">
-    <!-- <a class="button together button-on" onclick="TogetherJS(this); return false;" title="toggle collaboration"></a> -->
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
   <textarea id="code"></textarea>
-
+  <button id="auth_button">autho</button>
 
 <script>
 
-var $window = $(window);
+    /*==========  Create Editor  ==========*/
+    var $window = $(window);
 
-// Create Editor
-var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    lineNumbers: true,
-    lineWrapping: true,
-  });
+    // Create Editor
+    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        lineNumbers: true,
+        lineWrapping: true,
+      });
 
-// This makes the change function execute upon loading the page.
-window.onload = function() {
-  change();
-};
 
-CodeMirror.modeURL = "../static/js/vendor/%N.js";
+    /*==========  Autoload Functionality ==========*/
 
-// This parses the filename and sets the editor to the appropriate
-// mode.
-function change() {
-  var val = "{{=filename}}", m, mode, spec;
-  if (m = /.+\.([^.]+)$/.exec(val)) {
-    var info = CodeMirror.findModeByExtension(m[1]);
-    if (info) {
-      mode = info.mode;
-      spec = info.mime;
+    CodeMirror.modeURL = "../static/js/vendor/%N.js";
+
+    // This parses the filename and sets the editor to the appropriate
+    // mode.
+    function change() {
+      var val = "{{=filename}}", m, mode, spec;
+      if (m = /.+\.([^.]+)$/.exec(val)) {
+        var info = CodeMirror.findModeByExtension(m[1]);
+        if (info) {
+          mode = info.mode;
+          spec = info.mime;
+        }
+      } else if (/\//.test(val)) {
+        var info = CodeMirror.findModeByMIME(val);
+        if (info) {
+          mode = info.mode;
+          spec = val;
+        }
+      } else {
+        mode = spec = val;
+      }
+      if (mode) {
+        editor.setOption("mode", spec);
+        CodeMirror.autoLoadMode(editor, mode);
+        document.getElementById("modeinfo").textContent = spec;
+      } else {
+        alert("Could not find a mode corresponding to " + val);
+      }
     }
-  } else if (/\//.test(val)) {
-    var info = CodeMirror.findModeByMIME(val);
-    if (info) {
-      mode = info.mode;
-      spec = val;
-    }
-  } else {
-    mode = spec = val;
-  }
-  if (mode) {
-    editor.setOption("mode", spec);
-    CodeMirror.autoLoadMode(editor, mode);
-    document.getElementById("modeinfo").textContent = spec;
-  } else {
-    alert("Could not find a mode corresponding to " + val);
-  }
-}
 
-/*==========  STYLING & DYNAMIC BOX SIZING  ==========*/
 
-  $('.lights').click(function(el) {
-    el.preventDefault();
-    $('.cm-s-default').toggleClass('cm-s-monokai');
-    $(this).toggleClass('button-on');
-  }).click();
+    /*==========  Realtime Collaboration  ==========*/
 
-  $('.together').click(function(el) {
-    el.preventDefault();
-    $(this).toggleClass('button-on');
-  }).click();
+    //Realtime collaboration working with google login.
+    //Appearance still needs to be fixed and the data still has to be saved.
+    //However, the collaboration portion of it is complete
 
-  var resizeBoxes = function() {
-    var windowHeight = $(window).height();
-    var windowWidth  = $(window).width();
-    $textBoxes = $('.CodeMirror');
-    $.each($textBoxes, function(idx, box) {
-      $(box).height(windowHeight);
-      $(box).width(windowWidth);
+
+    //Adds an onchange property to the editor.
+    //Sets the value of the collaborative string to what's on the editor
+    editor.on("change", function() {
+       if (collaborativeString != null) {
+          collaborativeString.setText(editor.getValue());
+       }
     });
-  };
 
-  resizeBoxes();
+    ////////////////////////////////////////////////////////////////////////////////////////
+    var clientId = '396830091727-la37vcj6qrc5s9c0oeadivf1gm1su95u.apps.googleusercontent.com'
+    var realtimeUtils = new utils.RealtimeUtils({ clientId: clientId });
+    ////////////////////////////////////////////////////////////////////////////////////////
 
-  $window.resize(function() {
+    authorize();                     //Call the authorize function, prompts google login.
+    var collaborativeString = null;  //Initialize collaborative string
+
+    //Authorizes google login
+    function authorize() {
+       realtimeUtils.authorize(function(response){
+          if (response.error) {
+             var button = document.getElementById('auth_button');
+             button.classList.add('visible');
+             button.addEventListener('click', function() {
+             realtimeUtils.authorize(function(response){
+                start();
+                }, true);
+             });
+          } else {
+             start();
+          }
+       }, false);
+    }
+
+    //Starts the realtime environment
+    function start() {
+      var id = realtimeUtils.getParam('id');
+      if (id) {
+          realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
+       } else {
+          realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
+             window.history.pushState(null, null, '?id=' + createResponse.id);
+             realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
+          });
+       }
+    }
+
+    //Sets the default collaborative string value
+    function onFileInitialize(model) {
+       change();
+       var string = model.createString();
+       //string.setText("#Welcome to Ideal\n");
+       model.getRoot().set('default', string);
+    }
+
+    //Sets the document to the default text value, adds event listeners for when the text is altered
+    function onFileLoaded(doc) {
+       collaborativeString = doc.getModel().getRoot().get('default');
+       wireTextBoxes(collaborativeString);
+       editor.setValue(collaborativeString.getText());
+       collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, sync);
+       collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_DELETED, sync);
+    }
+
+    /* This function binds the default text box, namely 'code' to the realtime string.
+     * it is important to note that we can not bind the codemirror text box, 'editor' to
+     * the collaborative string because it is an abstraction above a plain text box 
+     */
+    function wireTextBoxes(collaborativeString) {
+       var textArea1 = document.getElementById('code');
+       gapi.drive.realtime.databinding.bindString(collaborativeString, textArea1);
+    }
+
+    /* This function syncs the editor value with the collaborative string.
+     * If the collaborative string is edited (text inserted or text deleted),
+     * this function, sync(), is called which sets the editor's text to the 
+     * text of the collaborative string */
+    function sync() { 
+       var x = editor.getCursor();
+       editor.setValue(collaborativeString.getText());
+       editor.setCursor(x); 
+    }
+
+
+    /*==========  STYLING & DYNAMIC BOX SIZING  ==========*/
+
+    $('.lights').click(function(el) {
+      el.preventDefault();
+      $('.cm-s-default').toggleClass('cm-s-monokai');
+      $(this).toggleClass('button-on');
+    }).click();
+
+    var resizeBoxes = function() {
+      var windowHeight = $(window).height();
+      var windowWidth  = $(window).width();
+      $textBoxes = $('.CodeMirror');
+      $.each($textBoxes, function(idx, box) {
+        $(box).height(windowHeight);
+        $(box).width(windowWidth);
+      });
+    };
+
     resizeBoxes();
-  });
 
-  $('#frame').draggable().resizable({
-    handles: 'n, e, s, w, ne, se, sw, nw'
-  });
+    $window.resize(function() {
+      resizeBoxes();
+    });
+
+    $('#frame').draggable().resizable({
+      handles: 'n, e, s, w, ne, se, sw, nw'
+    });
 
 </script>
 </body>
