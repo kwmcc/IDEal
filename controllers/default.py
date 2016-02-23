@@ -27,7 +27,7 @@ def files():
    """
    Page that displays all files the user has saved on to the server.
    """
-   grid = SQLFORM.smartgrid(db.files)
+   grid = SQLFORM.smartgrid(db.files,csv=False)
    return dict(grid=grid)
 
 

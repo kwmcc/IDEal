@@ -28,6 +28,10 @@
 
   <textarea id="code"></textarea>
   <button id="auth_button">autho</button>
+  <a href="/ideal/default/files/">Login</a>
+  <a href="/ideal/default/files/">Save</a>
+  <button onclick="fileSave()">SAVE</button>
+
 
 <script>
 
@@ -40,6 +44,17 @@
         lineWrapping: true,
       });
 
+
+    function updateTextArea() {
+         editor.save();
+    }
+
+    // This might break collaboration
+    // TODO: find out.
+    editor.on("change", updateTextArea);
+
+    function fileSave() {
+        
 
     /*==========  Autoload Functionality ==========*/
 
@@ -193,5 +208,6 @@
     });
 
 </script>
+
 </body>
 </html>
