@@ -69,7 +69,7 @@ mail.settings.login = myconf.take('smtp.login')
 ## configure auth policy
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
-auth.settings.reset_password_requires_verification = False
+auth.settings.reset_password_requires_verification = True
 
 #########################################################################
 ## Define your tables below (or better in another model file) for example
@@ -92,3 +92,5 @@ auth.settings.reset_password_requires_verification = False
 # auth.enable_record_versioning(db)
 db.define_table('files',
     Field('filename'))
+
+db.files.filename.requires = IS_NOT_EMPTY()
