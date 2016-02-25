@@ -39,7 +39,7 @@ def ideal_editor():
     return dict(filename=filename.get('name'))
 
 def save_to_server():
-   f = open(request.vars.filename, 'w')
+   f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
    f.write(request.vars.code)
    f.close
    return dict()
