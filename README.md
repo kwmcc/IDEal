@@ -8,7 +8,7 @@ including Google Sign-in flow, saving with Drive, chat through Hangouts, and syn
 IDEal is being built at the University of California Santa Cruz by students in CMPS 183 and CMPM 131.
 
 ## Where can I find IDEal?
-Simply go to [IDEal Github.io URL] and sign in to start using IDEal.
+Simply go to https://ideal.soe.ucsc.edu and sign in to start using IDEal.
 
 ## Usage
 [More detailed instructions on how to use IDEal]
@@ -30,5 +30,4 @@ The most recent iteration of IDEal's code can be found at https://github.com/laz
 
 ####UX and Design
   Michael Lowe - mimlowe@ucsc.edu   
-  Ryan Kwok - rfkwok@ucsc.edu   
   Kevin McCotter - kmccotte@ucsc.edu   
