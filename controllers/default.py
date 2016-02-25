@@ -38,6 +38,12 @@ def ideal_editor():
     filename = request.vars
     return dict(filename=filename.get('name'))
 
+def save_to_server():
+   f = open("test_file", 'w')
+   f.write(request.vars.code)
+   f.close
+   return dict()
+
 def user():
     """
     exposes:
