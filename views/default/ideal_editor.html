@@ -8,6 +8,10 @@
   <script src="../static/js/vendor/loadmode.js"></script>
   <script src="../static/js/vendor/meta.js"></script>
 
+  {{include 'web2py_ajax.html'}}
+  <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
+  <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
+
   <script src="../static/js/vendor/python.js"></script>
   <script src="../static/js/vendor/css.js"></script>
   <script src="../static/js/vendor/htmlmixed.js"></script>
@@ -26,8 +30,12 @@
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
-  <textarea id="code"></textarea>
+  <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
+  <a href="/ideal/default/files/">Login</a>
+  <button id="save" onclick="fileSave()">SAVE</button>
+  <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+
 
 <script>
 
@@ -40,6 +48,18 @@
         lineWrapping: true,
       });
 
+
+    function updateTextArea() {
+         editor.save();
+    }
+
+    // This might break collaboration
+    // TODO: find out.
+    editor.on("change", updateTextArea);
+
+    function fileSave() {
+      ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
+    }
 
     /*==========  Autoload Functionality ==========*/
 
@@ -72,7 +92,6 @@
         alert("Could not find a mode corresponding to " + val);
       }
     }
-
 
     /*==========  Realtime Collaboration  ==========*/
 
@@ -163,7 +182,6 @@
        editor.setCursor(x); 
     }
 
-
     /*==========  STYLING & DYNAMIC BOX SIZING  ==========*/
 
     $('.lights').click(function(el) {
@@ -193,5 +211,6 @@
     });
 
 </script>
+
 </body>
 </html>

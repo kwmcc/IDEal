@@ -22,12 +22,27 @@ def index():
         redirect(URL('ideal_editor', vars=dict(name=name)))
     return dict(form=form)
 
+@auth.requires_login()
+def files():
+   """
+   Page that displays all files the user has saved on to the server.
+   """
+   grid = SQLFORM.smartgrid(db.files,csv=False)
+   return dict(grid=grid)
+
+
 def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
     """
     filename = request.vars
     return dict(filename=filename.get('name'))
+
+def save_to_server():
+   f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
+   f.write(request.vars.code)
+   f.close
+   return dict()
 
 def user():
     """
