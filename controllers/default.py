@@ -16,27 +16,20 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
+    files = db().select(db.files.ALL, orderby=db.files.filename)
     form = SQLFORM(db.files)
     if form.process().accepted:
         name = form.vars.filename
-        redirect(URL('ideal_editor', vars=dict(name=name)))
-    return dict(form=form)
-
-@auth.requires_login()
-def files():
-   """
-   Page that displays all files the user has saved on to the server.
-   """
-   grid = SQLFORM.smartgrid(db.files,csv=False)
-   return dict(grid=grid)
-
+        redirect(URL('ideal_editor', vars=dict(name=name, load=False)))
+    return dict(form=form, files=files)
 
 def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
     """
-    filename = request.vars
-    return dict(filename=filename.get('name'))
+    filename = request.vars.get('name')
+    load = request.vars.load
+    return {filename : filename, load : load}
 
 def save_to_server():
    f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
