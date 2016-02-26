@@ -49,6 +49,9 @@
         lineWrapping: true,
       });
 
+    {{if load == 'True':}}
+    editor.setValue("{{=data}}")
+    {{pass}}
 
     function updateTextArea() {
          editor.save();
