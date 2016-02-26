@@ -1,0 +1,17 @@
+<head>
+    <title></title>
+    <LINK rel="stylesheet" type="text/css" href="../static/css/IDEal_styles.css" title="IDEal Styles" media="screen">
+    <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
+</head>
+<body>
+    <body bgcolor="#424242"></bgcolor>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <div class="centered">
+          <h1>
+              Select a file to open or start a new file below:
+        </h1>
+          <p>{{=grid}}</p>
+    </div>
+</body>
+
+{{=BEAUTIFY(response.vars)}}
