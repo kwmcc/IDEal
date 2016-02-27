@@ -94,7 +94,7 @@ db.define_table('files',
     Field('filename'))
 
 db.define_table('tokens',
-    Field('files_id', 'reference files'),
+    Field('files_filename', 'reference files'),
     Field('tokenname'))
 
 db.files.filename.requires = IS_NOT_EMPTY()
