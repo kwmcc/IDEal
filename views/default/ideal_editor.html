@@ -106,6 +106,7 @@
     var clientId = '60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com'
     var realtimeUtils = new utils.RealtimeUtils({ clientId: clientId });
     ////////////////////////////////////////////////////////////////////////////////////////
+
     authorize();                     //Call the authorize function, prompts google login.
     var collaborativeString = null;  //Initialize collaborative string
 
@@ -133,7 +134,7 @@
           realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
        } else {
           realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
-             window.history.pushState(null, null,'?name=' + "{{=filename}}" + '?id=' + createResponse.id);
+             window.history.pushState(null, null, '?id=' + createResponse.id);
              realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
           });
        }
