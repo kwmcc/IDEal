@@ -87,10 +87,3 @@ auth.settings.reset_password_requires_verification = True
 ## >>> rows=db(db.mytable.myfield=='value').select(db.mytable.ALL)
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
-
-## after defining tables, uncomment below to enable auditing
-# auth.enable_record_versioning(db)
-db.define_table('files',
-    Field('filename'))
-
-db.files.filename.requires = IS_NOT_EMPTY()

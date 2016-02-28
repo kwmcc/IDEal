@@ -9,18 +9,25 @@
 #########################################################################
 
 def index():
-    """
-    example action using the internationalization operator T and flash
-    rendered by views/default/index.html or views/generic.html
+    
+    
+    return dict()
 
-    if you need a simple wiki simply replace the two lines below with:
-    return auth.wiki()
-    """
+def project_init():
     form = SQLFORM(db.files)
     if form.process().accepted:
         name = form.vars.filename
         redirect(URL('ideal_editor', vars=dict(name=name)))
     return dict(form=form)
+
+@auth.requires_login()
+def files():
+   """
+   Page that displays all files the user has saved on to the server.
+   """
+   grid = SQLFORM.smartgrid(db.files,csv=False)
+   return dict(grid=grid)
+
 
 def ideal_editor():
     """
@@ -28,6 +35,12 @@ def ideal_editor():
     """
     filename = request.vars
     return dict(filename=filename.get('name'))
+
+def save_to_server():
+   f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
+   f.write(request.vars.code)
+   f.close
+   return dict()
 
 def user():
     """
@@ -65,5 +78,3 @@ def call():
     supports xml, json, xmlrpc, jsonrpc, amfrpc, rss, csv
     """
     return service()
-
-
