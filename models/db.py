@@ -91,8 +91,7 @@ auth.settings.reset_password_requires_verification = True
 db.define_table('files',
     Field('filename'))
 
-db.define_table('tokens',
-    Field('tokenname'),
+db.define_table('owners',
     Field('file_id', 'reference files'),
     Field('ownername'))
 
