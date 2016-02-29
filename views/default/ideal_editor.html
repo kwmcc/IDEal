@@ -32,6 +32,8 @@
 
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
+  <button id="save" onclick="fileSave()">SAVE</button>
+  <button id="load" onclick="fileLoad()">LOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
 
@@ -46,6 +48,9 @@
         lineWrapping: true,
       });
 
+    {{if load == 'True':}}
+    editor.setValue("{{=data.replace("\r\n", "\\n")}}")
+    {{pass}}
 
     function updateTextArea() {
          editor.save();
@@ -54,6 +59,10 @@
     // This might break collaboration
     // TODO: find out.
     editor.on("change", updateTextArea);
+
+    function fileSave() {
+      ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
+    }
 
     /*==========  Autoload Functionality ==========*/
 

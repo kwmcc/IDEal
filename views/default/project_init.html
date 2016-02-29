@@ -9,5 +9,11 @@
     <div class="centered">
           <h1>Enter your project title and filetype extension</h1>
           {{=form}}
+          <h1>Files:</h1>
+          <ul>
+             {{for file in files:}}
+             {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+             {{pass}}
+        </ul>
     </div>
 </body>

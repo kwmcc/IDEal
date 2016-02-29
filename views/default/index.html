@@ -19,5 +19,15 @@
               console.log('Email: ' + profile.getEmail());
             }
           </script>
+
+          <h2>Please enter filename to start IDEal</h2>
+          {{=form}}
+          <h2> Or, load a file that is saved on the server. </h2>
+          <h1>Files:</h1>
+          <ul>
+             {{for file in files:}}
+             {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+             {{pass}}
+        </ul>
     </div>
 </body>

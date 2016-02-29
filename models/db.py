@@ -87,3 +87,7 @@ auth.settings.reset_password_requires_verification = True
 ## >>> rows=db(db.mytable.myfield=='value').select(db.mytable.ALL)
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
+db.define_table('files',
+                Field('filename'))
+
+db.files.filename.requires = IS_NOT_EMPTY()
