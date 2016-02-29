@@ -32,6 +32,8 @@ def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
     """
+    db.owners.insert(ownername = auth_table.username)
+    db.files.filename.owners_id = db.owners.ownername.owners_id
     filename = request.vars
     return dict(filename=filename.get('name'))
 
