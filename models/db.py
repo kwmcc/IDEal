@@ -98,50 +98,41 @@ auth.settings.reset_password_requires_verification = True
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
 
+# processes Google auth tokens
+
 from gluon.contrib.login_methods.oauth20_account import OAuthAccount
 from gluon.storage import Storage
+import urllib2
+import os
 
 try:
     import json
 except ImportError:
     from gluon.contrib import simplejson as json
 
-import os
-import urllib2
-
 class GoogleAccount(OAuthAccount):
     "OAuth 2.0 for Google"
 
-    def __init__(self,g):
-        ## print 'Start reading database'
+    def __init__(self):
         with open(os.path.join(request.folder, 'private/google_auth.json'), 'rb') as f:
             gai = Storage(json.load(f)['web'])
 
-        ## logger.debug("GAI is %s" % gai)
-        ## logger.debug("Before gai.token_uri is %s" % gai.auth_uri)
-        ## gai.auth_uri = settings.url_callback
-        ## logger.debug("After gai.auth_uri is %s" % gai.auth_uri)
-
-        gai.client_id = auth.settings.ggl_client_id
-        gai.client_secret = auth.settings.ggl_client_secret
-
         OAuthAccount.__init__(self, None,
-                          gai.client_id,
-                          gai.client_secret,
-                          gai.auth_uri,
-                          gai.token_uri,
-                          scope='https://www.googleapis.com/auth/plus.login https://mail.google.com https://www.googleapis.com/auth/userinfo.email',
-                          approval_prompt='auto', state="auth_provider=google", include_granted_scopes="true")
-    ## logger.debug("Entered 1 Google Account code")
+                              gai.client_id,
+                              gai.client_secret,
+                              gai.auth_uri,
+                              gai.token_uri,
+                              scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+                              approval_prompt='force',
+                              state="auth_provider=google")
 
     def get_user(self):
-        ## logger.debug("Self is %s" % self)
+
         token = self.accessToken()
         if not token:
             return None
 
-        logger.debug("token is %s" % token)
-        uinfo_url = 'https://www.googleapis.com/plus/v1/people/me?access_token=%s' % urllib2.quote(token, safe='')
+        uinfo_url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s' % urllib2.quote(token, safe='')
 
         uinfo = None
 
@@ -149,42 +140,17 @@ class GoogleAccount(OAuthAccount):
             uinfo_stream = urllib2.urlopen(uinfo_url)
         except:
             session.token = None
-        return
-
+            return
         data = uinfo_stream.read()
-        logger.debug("\ndata is %s" % data)
         uinfo = json.loads(data)
-        logger.debug("\nThe User Info returned is %s" % uinfo)
 
         username = uinfo['id']
-        if 'emails' in uinfo:
-            for e in uinfo['emails']:
-                if e['type'] == "account":
-                    emailaddr = e['value']
 
-        ## logger.debug("\nEmailaddr is %s" % emailaddr)
-        image_url = None
-        gender = None
-        lang = None
-        age_range = None
-
-        if 'image' in uinfo:
-            image_url = uinfo['image']['url']
-        if 'gender' in uinfo:
-            gender = uinfo['gender']
-        if 'language' in uinfo:
-            lang = uinfo['language']
-        if 'ageRange' in uinfo:
-            age_range = uinfo['ageRange']['min']
-
-        return dict(first_name = uinfo['name']['givenName'],
-            last_name = uinfo['name']['familyName'],
-            username = username,
-            email = emailaddr,
-            image_url = image_url,
-            gender = gender,
-            lang = lang,
-            age_range = age_range)
+        return dict(first_name = uinfo['given_name'],
+                    last_name = uinfo['family_name'],
+                    username = username,
+                    email = uinfo['email'])
 
 auth.settings.actions_disabled=['register','change_password','request_reset_password','profile']
-auth.settings.login_form=GoogleAccount(globals())
+
+auth.settings.login_form = GoogleAccount()
