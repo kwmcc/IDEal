@@ -65,6 +65,15 @@ auth_table = db.define_table(auth.settings.table_user_name,
                                    readable=False, label='Password'))
 
 auth_table.username.requires = IS_NOT_IN_DB(db, auth_table.username)
+
+db.define_table('files',
+    Field('filename'))
+
+db.define_table('owners',
+    Field('file_id', 'reference files'),
+    Field('ownername'))
+
+db.files.filename.requires = IS_NOT_EMPTY()
 auth.define_tables()
 
 ## create all tables needed by auth if not custom tables

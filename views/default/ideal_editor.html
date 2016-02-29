@@ -32,8 +32,6 @@
 
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
-  <a href="/ideal/default/files/">Login</a>
-  <button id="save" onclick="fileSave()">SAVE</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
 
@@ -56,10 +54,6 @@
     // This might break collaboration
     // TODO: find out.
     editor.on("change", updateTextArea);
-
-    function fileSave() {
-      ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
-    }
 
     /*==========  Autoload Functionality ==========*/
 
@@ -140,17 +134,17 @@
           realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
        } else {
           realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
-             window.history.pushState(null, null, '?id=' + createResponse.id);
+             window.history.pushState(null, null,'?name=' + '{{=filename}}' + '?id=' + createResponse.id);
              realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
           });
        }
+       //Right here the token needs to be associated with the filename in the DB
     }
 
     //Sets the default collaborative string value
     function onFileInitialize(model) {
-       change();
        var string = model.createString();
-       //string.setText("#Welcome to Ideal\n");
+       string.setText("#Welcome to Ideal\n");
        model.getRoot().set('default', string);
     }
 
