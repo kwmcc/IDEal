@@ -19,14 +19,13 @@ def project_init():
         redirect(URL('ideal_editor', vars=dict(name=name)))
     return dict(form=form)
 
-@auth.requires_login()
 def files():
-   """
-   Page that displays all files the user has saved on to the server.
-   """
-   grid = SQLFORM.smartgrid(db.files,csv=False)
-   return dict(grid=grid)
-
+    """
+    Page that displays all files the user has saved on to the server.
+    """
+    
+    #grid = SQLFORM.smartgrid(db.files,csv=False)
+    return dict()
 
 def ideal_editor():
     """
@@ -36,10 +35,10 @@ def ideal_editor():
     return dict(filename=filename.get('name'))
 
 def save_to_server():
-   f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
-   f.write(request.vars.code)
-   f.close
-   return dict()
+    f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
+    f.write(request.vars.code)
+    f.close
+    return dict()
 
 def user():
     """
