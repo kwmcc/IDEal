@@ -30,8 +30,23 @@
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
+  <div id="picker">
+      <div id="picker-title">Load A File</div>
+      <div id="picker-box" style="height: 550px;">
+          <button onclick="hidePicker()">close</button>
+          <div id="picker-list">
+              <ul>
+                   {{for file in db.files:}}
+                       {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+                   {{pass}}
+              </ul>
+          </div>
+      </div>
+  </div>  
+    
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
+  <button onclick="showPicker()">load file</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
 
@@ -85,6 +100,14 @@
       } else {
         alert("Could not find a mode corresponding to " + val);
       }
+    }
+    
+    function showPicker(){
+        document.getElementById("picker").style.display = "block";
+    }
+    
+    function hidePicker(){
+        document.getElementById("picker").style.display = "none";
     }
 
     /*==========  Realtime Collaboration  ==========*/
