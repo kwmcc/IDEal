@@ -9,10 +9,9 @@
 #########################################################################
 
 def index():
-    
-    
     return dict()
 
+@auth.requires_login()
 def project_init():
     form = SQLFORM(db.files)
     if form.process().accepted:
