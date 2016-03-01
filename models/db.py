@@ -57,8 +57,27 @@ auth = Auth(db)
 service = Service()
 plugins = PluginManager()
 
+auth_table = db.define_table(auth.settings.table_user_name,
+                             Field('first_name', length=128, default=""),
+                             Field('last_name', length=128, default=""),
+                             Field('username', length=128, default="", unique=True),
+                             Field('password', 'password', length=256,
+                                   readable=False, label='Password'))
+
+auth_table.username.requires = IS_NOT_IN_DB(db, auth_table.username)
+
+db.define_table('files',
+    Field('filename'))
+
+db.define_table('owners',
+    Field('file_id', 'reference files'),
+    Field('ownername'))
+
+db.files.filename.requires = IS_NOT_EMPTY()
+auth.define_tables()
+
 ## create all tables needed by auth if not custom tables
-auth.define_tables(username=False, signature=False)
+## auth.define_tables(username=False, signature=False)
 
 ## configure email
 mail = auth.settings.mailer
@@ -88,11 +107,59 @@ auth.settings.reset_password_requires_verification = True
 ## >>> for row in rows: print row.id, row.myfield
 #########################################################################
 
-db.define_table('files',
-    Field('filename'))
+# processes Google auth tokens
 
-db.define_table('owners',
-    Field('file_id', 'reference files'),
-    Field('ownername'))
+from gluon.contrib.login_methods.oauth20_account import OAuthAccount
+from gluon.storage import Storage
+import urllib2
+import os
 
-db.files.filename.requires = IS_NOT_EMPTY()
+try:
+    import json
+except ImportError:
+    from gluon.contrib import simplejson as json
+
+class GoogleAccount(OAuthAccount):
+    "OAuth 2.0 for Google"
+
+    def __init__(self):
+        with open(os.path.join(request.folder, 'private/google_auth.json'), 'rb') as f:
+            gai = Storage(json.load(f)['web'])
+
+        OAuthAccount.__init__(self, None,
+                              gai.client_id,
+                              gai.client_secret,
+                              gai.auth_uri,
+                              gai.token_uri,
+                              scope='https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+                              approval_prompt='force',
+                              state="auth_provider=google")
+
+    def get_user(self):
+
+        token = self.accessToken()
+        if not token:
+            return None
+
+        uinfo_url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s' % urllib2.quote(token, safe='')
+
+        uinfo = None
+
+        try:
+            uinfo_stream = urllib2.urlopen(uinfo_url)
+        except:
+            session.token = None
+            return
+        data = uinfo_stream.read()
+        uinfo = json.loads(data)
+
+        username = uinfo['id']
+
+        return dict(first_name = uinfo['given_name'],
+                    last_name = uinfo['family_name'],
+                    username = username,
+                    email = uinfo['email'])
+
+auth.settings.actions_disabled=['register','change_password','request_reset_password','profile']
+
+auth.settings.login_form = GoogleAccount()

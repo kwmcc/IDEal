@@ -12,6 +12,7 @@ def index():
     redirect(URL('project_init'))
     return dict()
 
+@auth.requires_login()
 def project_init():
     files = db().select(db.files.ALL, orderby=db.files.filename)
     form = FORM('Filename: ', INPUT(_name='name'), INPUT(_type='submit'))
