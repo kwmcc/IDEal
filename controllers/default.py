@@ -9,6 +9,7 @@
 #########################################################################
 
 def index():
+    redirect(URL('project_init'))
     return dict()
 
 def project_init():
