@@ -33,10 +33,22 @@
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
   <button id="save" onclick="fileSave()">SAVE</button>
-  <button id="load" onclick="fileLoad()">LOAD</button>
+  <button id="load" onclick="showPicker()">LOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
-
+  <div id="picker-box">
+      <button onclick="hidePicker()">close</button>
+      <div id="picker-title">Load A File</div>
+      <div id="picker-list">
+          <ul>
+           {{for file in files:}}
+           {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+           {{pass}}
+          </ul>
+      </div>
+  </div>
+  
+    
 <script>
 
     /*==========  Create Editor  ==========*/
@@ -64,6 +76,13 @@
       ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
     }
 
+    function showPicker(){
+        document.getElementById("picker-box").style.display = "block";
+    }
+    
+    function hidePicker(){
+        document.getElementById("picker-box").style.display = "none";
+    }
     /*==========  Autoload Functionality ==========*/
 
     CodeMirror.modeURL = "../static/js/vendor/%N.js";

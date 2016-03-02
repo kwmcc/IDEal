@@ -29,6 +29,7 @@ def ideal_editor():
     the file is read and stored in the data variable. Otherwise,
     data is the empty string.
     """
+    files = db().select(db.files.ALL, orderby=db.files.filename)
     if not db.files(auth_user_id = auth.user.id, filename = request.vars.get('name')):
         db.files.insert(auth_user_id = auth.user.id, filename = request.vars.get('name'))
     if request.vars.get('load') == 'True':
@@ -39,7 +40,7 @@ def ideal_editor():
         data = ""
     filename = request.vars.get('name')
     load = request.vars.get('load')
-    return dict(filename=filename, load=load, data=data)
+    return dict(filename=filename, load=load, data=data, files=files)
 
 def save_to_server():
    db.files.insert(filename=request.vars.filename)
