@@ -67,11 +67,10 @@ auth_table = db.define_table(auth.settings.table_user_name,
 auth_table.username.requires = IS_NOT_IN_DB(db, auth_table.username)
 
 db.define_table('files',
+    Field('auth_user_id', 'reference auth_user', readable = False, writable = False),
     Field('filename'))
 
-db.define_table('owners',
-    Field('file_id', 'reference files'),
-    Field('ownername'))
+
 
 db.files.filename.requires = IS_NOT_EMPTY()
 auth.define_tables()
