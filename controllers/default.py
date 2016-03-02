@@ -29,7 +29,8 @@ def ideal_editor():
     the file is read and stored in the data variable. Otherwise,
     data is the empty string.
     """
-    db.files.insert(auth_user_id = auth.user.id, filename = request.vars.get('name'))
+    if not db.files(auth_user_id = auth.user.id, filename = request.vars.get('name')):
+        db.files.insert(auth_user_id = auth.user.id, filename = request.vars.get('name'))
     if request.vars.get('load') == 'True':
         f = open('applications/ideal/uploads/' + request.vars.get('name'))
         data = f.read()
