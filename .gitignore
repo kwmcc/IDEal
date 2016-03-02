@@ -3,6 +3,7 @@ errors/
 sessions/
 databases/
 *.bak
+uploads/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
