@@ -9,7 +9,8 @@
 #########################################################################
 
 def index():
-    redirect(URL('project_init'))
+    if 'username' in auth_table:
+        redirect(URL('project_init'))
     return dict()
 
 @auth.requires_login()
@@ -42,11 +43,11 @@ def ideal_editor():
     return dict(filename=filename, load=load, data=data)
 
 def save_to_server():
-   db.files.insert(filename=request.vars.filename)
-   f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
-   f.write(request.vars.code)
-   f.close
-   return dict()
+    db.files.insert(filename=request.vars.filename)
+    f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
+    f.write(request.vars.code)
+    f.close
+    return dict()
 
 def user():
     """
