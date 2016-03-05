@@ -38,7 +38,8 @@ def ideal_editor():
     data is the empty string.
     """
     if request.vars.get('load') == 'True':
-        f = open('applications/ideal/uploads/' + request.vars.get('name'))
+        f = open('applications/ideal/uploads/' + str(auth.user.id)
+                + '/' + request.vars.get('name'))
         data = f.read()
         f.close()
     else:
@@ -50,7 +51,8 @@ def ideal_editor():
 @auth.requires_login()
 def save_to_server():
     db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename)
-    f = open('applications/ideal/uploads/' + request.vars.filename.strip(), 'w')
+    f = open('applications/ideal/uploads/' + str(auth.user.id)
+            + '/' + request.vars.filename.strip(), 'w')
     f.write(request.vars.code)
     f.close
     return dict()
