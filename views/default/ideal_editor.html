@@ -12,6 +12,8 @@
   <script src="{{=URL('static','js/bootstrap.min.js')}}"></script>
   <script src="{{=URL('static','js/web2py-bootstrap3.js')}}"></script>
 
+  <script src="../static/js/FileSaver.js"></script>
+
   <script src="../static/js/vendor/python.js"></script>
   <script src="../static/js/vendor/css.js"></script>
   <script src="../static/js/vendor/htmlmixed.js"></script>
@@ -31,11 +33,10 @@
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
-
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
   <button id="save" onclick="fileSave()">SAVE</button>
-  <button id="load" onclick="fileLoad()">LOAD</button>
+  <button id="download" onclick="fileDownload()">DOWNLOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
 
@@ -65,6 +66,12 @@
     function fileSave() {
       document.getElementById("saved").innerHTML="Saved";
       ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
+    }
+
+    function fileDownload() {
+        fileSave();
+        var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "{{=filename}}");
     }
 
     /*==========  Autoload Functionality ==========*/
