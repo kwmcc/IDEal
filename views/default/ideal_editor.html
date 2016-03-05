@@ -45,21 +45,24 @@
     /*==========  Create Editor  ==========*/
     var $window = $(window);
 
+    CodeMirror.modeURL = "../static/js/vendor/%N.js";
+
     // Create Editor
     var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         lineNumbers: true,
         lineWrapping: true,
+        mode: 'htmlmixed'
       });
-
-    {{if load == 'True':}}
-    editor.setValue("{{=data.replace("\r\n", "\\n")}}")
-    {{pass}}
 
     function updateTextArea() {
          editor.save();
     }
 
     editor.on("change", updateTextArea);
+
+
+
+    editor.setValue("Please wait while IDEal loads");
 
     function fileSave() {
       document.getElementById("saved").innerHTML="Saved";
@@ -68,11 +71,9 @@
 
     /*==========  Autoload Functionality ==========*/
 
-    CodeMirror.modeURL = "../static/js/vendor/%N.js";
-
     // This parses the filename and sets the editor to the appropriate
     // mode.
-    function change() {
+    function load_mode() {
       var val = "{{=filename}}", m, mode, spec;
       if (m = /.+\.([^.]+)$/.exec(val)) {
         var info = CodeMirror.findModeByExtension(m[1]);
@@ -92,7 +93,6 @@
       if (mode) {
         editor.setOption("mode", spec);
         CodeMirror.autoLoadMode(editor, mode);
-        document.getElementById("modeinfo").textContent = spec;
       } else {
         alert("Could not find a mode corresponding to " + val);
       }
@@ -145,7 +145,7 @@
           realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
        } else {
           realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
-             window.history.pushState(null, null,'?name=' + '{{=filename}}' + '?id=' + createResponse.id);
+             window.history.pushState(null, null,'?load=' + '{{=load}}' + '&name=' + '{{=filename}}' + '&id=' + createResponse.id);
              realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
           });
        }
@@ -155,8 +155,13 @@
     //Sets the default collaborative string value
     function onFileInitialize(model) {
        var string = model.createString();
+       {{if load == 'True':}}
+       string.setText("{{=data.replace("\r\n", "\\n")}}")
+       {{else:}}
        string.setText("#Welcome to Ideal\n");
+       {{pass}}
        model.getRoot().set('default', string);
+       load_mode();
     }
 
     //Sets the document to the default text value, adds event listeners for when the text is altered

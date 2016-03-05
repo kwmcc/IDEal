@@ -18,10 +18,17 @@ def project_init():
     files = db().select(db.files.ALL, orderby=db.files.filename)
     form = FORM('Filename: ', INPUT(_name='name'), INPUT(_type='submit'))
     if form.accepts(request,session):
-        name = form.vars.name
-        redirect(URL('ideal_editor', vars=dict(name=name, load=False)))
+       # This code should check if the user has already saved a file with
+       # this name to the DB.
+       # row = db.files(filename = form.vars.name, auth_user_id = auth.user.id)
+       # if not row:
+            name = form.vars.name
+            redirect(URL('ideal_editor', vars=dict(name=name, load=False)))
+       # else:
+       #     error = 'You already have a file saved under that name'
     return dict(form=form, files=files)
 
+@auth.requires_login()
 def ideal_editor():
     """
     This creates the ideal/default/ideal_editor page.
@@ -30,8 +37,6 @@ def ideal_editor():
     the file is read and stored in the data variable. Otherwise,
     data is the empty string.
     """
-    if not db.files(auth_user_id = auth.user.id, filename = request.vars.get('name')):
-        db.files.insert(auth_user_id = auth.user.id, filename = request.vars.get('name'))
     if request.vars.get('load') == 'True':
         f = open('applications/ideal/uploads/' + request.vars.get('name'))
         data = f.read()
@@ -42,9 +47,10 @@ def ideal_editor():
     load = request.vars.get('load')
     return dict(filename=filename, load=load, data=data)
 
+@auth.requires_login()
 def save_to_server():
-    db.files.insert(filename=request.vars.filename)
-    f = open('applications/ideal/uploads/' + request.vars.filename, 'w')
+    db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename)
+    f = open('applications/ideal/uploads/' + request.vars.filename.strip(), 'w')
     f.write(request.vars.code)
     f.close
     return dict()
