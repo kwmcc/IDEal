@@ -17,16 +17,16 @@ def index():
 def project_init():
     files = db().select(db.files.ALL, orderby=db.files.filename)
     form = FORM('Filename: ', INPUT(_name='name'), INPUT(_type='submit'))
+    error = ''
     if form.accepts(request,session):
        # This code should check if the user has already saved a file with
        # this name to the DB.
-       # row = db.files(filename = form.vars.name, auth_user_id = auth.user.id)
-       # if not row:
+        if not db.files(filename = form.vars.name, auth_user_id = auth.user.id):
             name = form.vars.name
             redirect(URL('ideal_editor', vars=dict(name=name, load=False)))
-       # else:
-       #     error = 'You already have a file saved under that name'
-    return dict(form=form, files=files)
+        else:
+            error = 'You already have a file saved under that name'
+    return dict(form=form, files=files, error=error)
 
 @auth.requires_login()
 def ideal_editor():
@@ -50,7 +50,7 @@ def ideal_editor():
 
 @auth.requires_login()
 def save_to_server():
-    db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename)
+    db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename.strip())
     f = open('applications/ideal/uploads/' + str(auth.user.id)
             + '/' + request.vars.filename.strip(), 'w')
     f.write(request.vars.code)
