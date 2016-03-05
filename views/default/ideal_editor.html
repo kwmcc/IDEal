@@ -142,7 +142,7 @@
       if (id) {
           realtimeUtils.load(id.replace('/', ''), onFileLoaded, onFileInitialize);
        } else {
-          realtimeUtils.createRealtimeFile('New Quickstart File', function(createResponse) {
+          realtimeUtils.createRealtimeFile('{{=filename}}', function(createResponse) {
              window.history.pushState(null, null,'?load=' + '{{=load}}' + '&name=' + '{{=filename}}' + '&id=' + createResponse.id);
              realtimeUtils.load(createResponse.id, onFileLoaded, onFileInitialize);
           });
