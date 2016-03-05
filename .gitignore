@@ -3,6 +3,7 @@ errors/
 sessions/
 databases/
 *.bak
+*.swp
 uploads/
 
 # Byte-compiled / optimized / DLL files

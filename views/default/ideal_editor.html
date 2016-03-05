@@ -27,14 +27,17 @@
   </head>
 <body class="cm-s-default">
   <div id="controls">
+    <h3 id="saved" style="color:white;"> </h3>
     <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
+
 
   <textarea name="code" id="code"></textarea>
   <button id="auth_button">autho</button>
   <button id="save" onclick="fileSave()">SAVE</button>
   <button id="load" onclick="fileLoad()">LOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+
 
 
 <script>
@@ -56,11 +59,10 @@
          editor.save();
     }
 
-    // This might break collaboration
-    // TODO: find out.
     editor.on("change", updateTextArea);
 
     function fileSave() {
+      document.getElementById("saved").innerHTML="Saved";
       ajax('{{=URL('default', 'save_to_server')}}', ['code', 'filename'], 'target');
     }
 
