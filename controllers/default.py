@@ -37,6 +37,7 @@ def ideal_editor():
     the file is read and stored in the data variable. Otherwise,
     data is the empty string.
     """
+    files = db().select(db.files.ALL, orderby=db.files.filename)
     if request.vars.get('load') == 'True':
         f = open('applications/ideal/uploads/' + str(auth.user.id)
                 + '/' + request.vars.get('name'))
@@ -46,7 +47,7 @@ def ideal_editor():
         data = ""
     filename = request.vars.get('name')
     load = request.vars.get('load')
-    return dict(filename=filename, load=load, data=data)
+    return dict(filename=filename, load=load, data=data, files=files)
 
 @auth.requires_login()
 def save_to_server():

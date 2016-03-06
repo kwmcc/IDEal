@@ -429,3 +429,22 @@ div.CodeMirror {
   background-color: #3D3D3B;
   background-position: 8px;
 }
+
+/*picker*/
+#picker-box{
+  position: fixed;
+  z-index: 2;
+  margin-left: -277px;
+  background-color: #ffffff;
+  height: 518px;
+  width: 555px;
+  left: 50%;
+  top: 150px;
+  font-size: 15px;
+  color: #2f476b;
+  display: none;
+}
+
+#picker-title{
+  text-align: center;
+}

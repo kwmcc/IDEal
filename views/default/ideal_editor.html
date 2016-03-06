@@ -34,13 +34,22 @@
   </div>
 
   <textarea name="code" id="code"></textarea>
-  <but?on id="save" onclick="fileSave()">SAVE</button>
-  ad=False&name=Test.py&id=0B3y3nlNEZcXccnRvRGVtWXlyMjA
+  <button id="save" onclick="fileSave()">SAVE</button>
   <button id="download" onclick="fileDownload()">DOWNLOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+  <button id="load" onclick="showPicker()">LOAD</button>
 
-
-
+  <div id="picker-box">
+      <button onclick="hidePicker()">close</button>
+      <div id="picker-title">Load A File</div>
+      <div id="picker-list">
+          <ul>
+           {{for file in files:}}
+           {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename.strip(), 'load':'True'})))}}
+           {{pass}}
+          </ul>
+      </div>
+  </div>
 <script>
 
     /*==========  Create Editor  ==========*/
@@ -72,6 +81,13 @@
         fileSave();
         var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "{{=filename}}");
+    }
+    function showPicker(){
+        document.getElementById("picker-box").style.display = "block";
+    }
+
+    function hidePicker(){
+        document.getElementById("picker-box").style.display = "none";
     }
 
     /*==========  Autoload Functionality ==========*/
