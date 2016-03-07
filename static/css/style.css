@@ -429,3 +429,51 @@ div.CodeMirror {
   background-color: #3D3D3B;
   background-position: 8px;
 }
+
+/*html, body {
+    width: 100%
+    height: 100%
+    margin: 0;
+    padding: 0;
+}*/
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3f97db;
+    /*position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000;*/
+}
+
+li {
+    float: left;
+    border-right: 1px solid #0868b2
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #63ade5;
+    color: white;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+/*div.g-hangout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 3px solid #ff0000
+}*/

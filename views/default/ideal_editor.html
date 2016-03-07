@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IDEal Collaborative Code Editor</title>
+  <title>IDEal</title>
   <link rel="stylesheet" href="../static/css/reset.css" type="text/css">
   <link rel="stylesheet" href="../static/css/style.css" type="text/css">
   <script src="../static/js/vendor/codemirror.js"></script>
@@ -25,9 +25,19 @@
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <g:hangout render="createhangout"></g:hangout>
+    
   </head>
 <body class="cm-s-default">
+    <ul>
+        <li><a href="#file">File</a></li>
+        <li><a href="#edit">Edit</a></li>
+        <li><a href="#code">Code</a></li>
+        <ul style="float:right;list-style-type:none;">
+            <li> <g:hangout render="createhangout"></g:hangout></li>
+            <li><a href="#share">Share</a></li>
+            <li><a href="#account">Account</a></li>
+        </ul>
+    </ul>
   <div id="controls">
     <h3 id="saved" style="color:white;"> </h3>
     <a href="#" class="button lights" title="toggle the lights"></a>
@@ -38,8 +48,6 @@
   ad=False&name=Test.py&id=0B3y3nlNEZcXccnRvRGVtWXlyMjA
   <button id="download" onclick="fileDownload()">DOWNLOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
-
-
 
 <script>
 
