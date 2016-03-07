@@ -50,7 +50,8 @@ def ideal_editor():
 
 @auth.requires_login()
 def save_to_server():
-    db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename.strip())
+    if not db.files(filename = request.vars.filename.strip(), auth_user_id = auth.user.id):
+        db.files.insert(auth_user_id = auth.user.id, filename = request.vars.filename.strip())
     f = open('applications/ideal/uploads/' + str(auth.user.id)
             + '/' + request.vars.filename.strip(), 'w')
     f.write(request.vars.code)

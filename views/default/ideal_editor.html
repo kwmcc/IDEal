@@ -166,7 +166,6 @@
        string.setText("#Welcome to Ideal\n");
        {{pass}}
        model.getRoot().set('default', string);
-       load_mode();
     }
 
     //Sets the document to the default text value, adds event listeners for when the text is altered
@@ -174,6 +173,7 @@
        collaborativeString = doc.getModel().getRoot().get('default');
        wireTextBoxes(collaborativeString);
        editor.setValue(collaborativeString.getText());
+       load_mode();
        collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_INSERTED, sync);
        collaborativeString.addEventListener(gapi.drive.realtime.EventType.TEXT_DELETED, sync);
     }
