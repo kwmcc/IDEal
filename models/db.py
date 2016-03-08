@@ -153,11 +153,11 @@ class GoogleAccount(OAuthAccount):
         uinfo = json.loads(data)
 
         username = uinfo['id']
-
+    
         return dict(first_name = uinfo['given_name'],
                     last_name = uinfo['family_name'],
                     username = username,
-                    email = uinfo['email'])
+                    email = uinfo['email'])        
 
 auth.settings.actions_disabled=['register','change_password','request_reset_password','profile']
 

@@ -9,18 +9,18 @@
 #########################################################################
 
 def index():
-    if 'username' in auth_table:
-        redirect(URL('project_init'))
+    #if 'username' in auth_table:
+        #redirect(URL('project_init'))
     return dict()
-
+    
 @auth.requires_login()
 def project_init():
     files = db().select(db.files.ALL, orderby=db.files.filename)
     form = FORM('Filename: ', INPUT(_name='name'), INPUT(_type='submit'))
     error = ''
     if form.accepts(request,session):
-       # This code should check if the user has already saved a file with
-       # this name to the DB.
+        # This code should check if the user has already saved a file with
+        # this name to the DB.
         if not db.files(filename = form.vars.name, auth_user_id = auth.user.id):
             name = form.vars.name
             redirect(URL('ideal_editor', vars=dict(name=name, load=False)))
@@ -44,6 +44,7 @@ def ideal_editor():
         f.close()
     else:
         data = ""
+    
     filename = request.vars.get('name')
     load = request.vars.get('load')
     return dict(filename=filename, load=load, data=data)
