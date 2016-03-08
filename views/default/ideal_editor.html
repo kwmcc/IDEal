@@ -29,23 +29,45 @@
   </head>
 <body class="cm-s-default">
     <ul>
-        <li><a href="#file">File</a></li>
-        <li><a href="#edit">Edit</a></li>
-        <li><a href="#code">Code</a></li>
+        <li><div class="dropdown">
+            <button class="dropbtn">File</button>
+            <div class="dropdown-content">
+                <a onclick="fileSave()">Save</a>
+                <a onclick="fileDownload()">Download</a>
+            </div>
+            </div></li>
+        <li><div class="dropdown">
+            <button class="dropbtn">Edit</button>
+            <div class="dropdown-content">
+                <a onclick="fileSave()">Save</a>
+                <a onclick="fileDownload()">Download</a>
+            </div>
+            </div></li>
+        <li><div class="dropdown">
+            <button class="dropbtn">Code</button>
+            <div class="dropdown-content">
+                <a onclick="fileSave()">Save</a>
+                <a onclick="fileDownload()">Download</a>
+            </div>
+            </div></li>
+        <li><div class="dropdown">
+            <button class="dropbtn">Options</button>
+            <div class="dropdown-content">
+                <a class="button lights">Lights</a>
+                <a onclick="fileDownload()">Download</a>
+            </div>
+            </div></li>
         <ul style="float:right;list-style-type:none;">
             <li> <g:hangout render="createhangout"></g:hangout></li>
             <li><a href="#share">Share</a></li>
-            <li><a href="#account">Account</a></li>
+            <!--<li><a href="#account">Account</a></li>-->
         </ul>
     </ul>
   <div id="controls">
     <h3 id="saved" style="color:white;"> </h3>
-    <a href="#" class="button lights" title="toggle the lights"></a>
   </div>
 
   <textarea name="code" id="code"></textarea>
-  <button id="save" onclick="fileSave()">SAVE</button>
-  <button id="download" onclick="fileDownload()">DOWNLOAD</button>
   <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
 
 <script>

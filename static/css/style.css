@@ -116,8 +116,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 .CodeMirror-scroll {
   /* 30px is the magic margin used to hide the element's real scrollbars */
   /* See overflow: hidden in .CodeMirror */
-  margin-bottom: -30px; margin-right: -30px;
-  padding-bottom: 30px; padding-right: 30px;
+  /*margin-bottom: -30px; margin-right: -30px;
+  padding-bottom: 30px; padding-right: 30px;*/
+  margin-bottom: 0; margin-right: 0;
+  padding-bottom: 0; padding-right: 0;
   height: 100%;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
@@ -373,8 +375,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
 }
 
 div.CodeMirror {
-  padding: 10px 15px 15px 10px;
-  margin: .5em;
+  position: fixed;
+  top: 50px;
+  /*padding: 10px 15px 15px 10px;*/
+  /*margin: .5em;*/
 }
 
 #preview { 
@@ -445,8 +449,7 @@ ul {
     background-color: #3f97db;
     /*position: fixed;
     top: 0;
-    width: 100%;
-    z-index: 10000;*/
+    width: 100%;*/
 }
 
 li {
@@ -470,6 +473,42 @@ li a:hover {
 li:last-child {
     border-right: none;
 }
+
+.dropbtn {
+    background-color: #3f97db;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 3;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolue;
+    background-color: #3f97db;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover { background-color: #63ade5; }
+
+.dropdown:hover .dropdown-content { display: block; }
+
+.dropdown:hover .dropbtn { background-color: #63ade5; }
 
 /*div.g-hangout {
     position: fixed;
