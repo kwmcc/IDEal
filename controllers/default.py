@@ -9,8 +9,8 @@
 #########################################################################
 
 def index():
-    #if 'username' in auth_table:
-        #redirect(URL('project_init'))
+    if 'username' in auth_table:
+        redirect(URL('project_init'))
     return dict()
 
 @auth.requires_login()
