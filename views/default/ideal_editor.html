@@ -52,53 +52,55 @@
 <body class="cm-s-default">
     <ul>
         <li><div class="dropdown">
-            <button class="dropbtn"><i class="material-icons md-36">folder</i></button>
+            <button title="File" class="dropbtn"><i class="material-icons md-36">folder</i></button>
             <div class="dropdown-content">
-				<a onclick="showPicker()">Load</a>
-                <a onclick="fileSave()">Save</a>
-                <a onclick="fileDownload()">Download</a>
+				<a title="Load file from server" onclick="showPicker()">Load</a>
+                <a title="Save to the server" onclick="fileSave()">Save</a>
+                <a title="Download to local computer" onclick="fileDownload()">Download</a>
             </div>
             </div></li>
         <li><div class="dropdown">
-            <button class="dropbtn"><i class="material-icons md-36">edit</i></button>
+            <button title="Edit" class="dropbtn"><i class="material-icons md-36">edit</i></button>
+            <div class="dropdown-content">
+                <a title="Undo" href="#"><i class="material-icons">undo</i>Undo</a>
+                <a title="Redo"href="#"><i class="material-icons">redo</i>Redo</a>
+                <a title="Copy"href="#"><i class="material-icons">content_copy</i>Copy</a>
+                <a title="Cut"href="#"><i class="material-icons">content_cut</i><span>Cut</span></a>
+                <a title="Paste"href="#"><i class="material-icons">content_paste</i>Paste</a>
+            </div>
+            </div></li>
+        <li><div class="dropdown">
+            <button title="Code" class="dropbtn"><i class="material-icons md-36">code</i></button>
             <div class="dropdown-content">
                 <a href="#">Button</a>
             </div>
             </div></li>
         <li><div class="dropdown">
-            <button class="dropbtn"><i class="material-icons md-36">code</i></button>
+            <button title="Settings" class="dropbtn"><i class="material-icons md-36">settings</i></button>
             <div class="dropdown-content">
-                <a href="#">Button</a>
-            </div>
-            </div></li>
-        <li><div class="dropdown">
-            <button class="dropbtn"><i class="material-icons md-36">settings</i></button>
-            <div class="dropdown-content">
-                <a class="button lights">Background</a>
+                <a title="Change background color" class="button lights">Background</a>
             </div>
             </div></li>
         <div class="centericon">
-            <i class="material-icons md-48">donut_small</i>
+            <!--<i class="material-icons md-48">donut_small</i>-->
+            <img id="icon" src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
         </div>
         <ul style="float:right;list-style-type:none;">
         <li> <g:hangout render="createhangout"></g:hangout></li>
         <li><div class="dropdown">
-            <button class="dropbtn"><i class="material-icons md-36">person_add</i></button>
+            <button title="Share" class="dropbtn"><i class="material-icons md-36">person_add</i></button>
             </div></li>
 		<li><div class="dropdown">
-            <button class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
+            <button title="Sign Out" class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
             </div></li>
         </ul>
     </ul>
     
 	<div id="controls">
-		<h3 id="saved" style="color:white;"> </h3>
+		<h3 id="saved" style="color:white;"></h3>
 	</div>
 
-	<!-- <button id="signout" onclick="signOut()">SIGN OUT</button>
 	<textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
-
-	<button id="load" onclick="showPicker()">LOAD</button> -->
 
 	<textarea name="code" id="code"></textarea>
 

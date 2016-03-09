@@ -439,7 +439,8 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    height: 50px;
+    overflow: visible;
     background-color: #3f97db;
 }
 
@@ -448,24 +449,12 @@ li {
     border-right: 1px solid #0868b2
 }
 
-/*li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #63ade5;
-    color: white;
-}*/
-
 li:last-child {
     border-right: none;
 }
 
 .dropbtn {
+    display: inline-block;
     background-color: #3f97db;
     color: white;
     /*padding: 16px;*/
@@ -483,13 +472,13 @@ li:last-child {
 
 .dropdown-content {
     display: none;
-    /*position: absolute;
-    left: 0;*/
+    position: absolute;
+    /*left: 0;*/
     background-color: #3f97db;
-    /*min-width: 160px;*/
+    min-width: 160px;
     text-align: left;
     font-size: 16px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: inset 8px 0px 0px 0px rgba(0,0,0,0.2);
 }
 
 .dropdown-content a {
@@ -497,13 +486,20 @@ li:last-child {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    text-align: left;
 }
 
-.dropdown-content a:hover { background-color: #63ade5; }
+.dropdown-content a:hover {
+    background-color: #63ade5;
+}
 
-.dropdown:hover .dropdown-content { display: block; }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
-.dropdown:hover .dropbtn { background-color: #63ade5; }
+.dropdown:hover .dropbtn {
+    background-color: #63ade5;
+}
 
 #controls {
   position: fixed;
@@ -514,18 +510,16 @@ li:last-child {
 
 .centericon {
     position: fixed;
-    top: 0px;
+    top: 2px;
     left: 50%;
     /*margin: auto;
     width: 50%;
     padding 10px;
-    z-index: 999;*/
-    background-color: #565656;
-    color: transparent;
-    text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.7);
-    -webkit-background-clip: text;
-       -moz-background-clip: text;
-            background-clip: text;
+    z-index: 999;
+    background-color: #ff0000;
+    color: transparent;*/
+    -webkit-filter:opacity(60%);
+    filter:opacity(60%);
 }
 
 /*div.g-hangout {
