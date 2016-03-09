@@ -4,6 +4,7 @@
   <title>IDEal</title>
   <link rel="stylesheet" href="../static/css/reset.css" type="text/css">
   <link rel="stylesheet" href="../static/css/style.css" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <script src="../static/js/vendor/codemirror.js"></script>
   <script src="../static/js/vendor/loadmode.js"></script>
   <script src="../static/js/vendor/meta.js"></script>
@@ -51,7 +52,7 @@
 <body class="cm-s-default">
     <ul>
         <li><div class="dropdown">
-            <button class="dropbtn">File</button>
+            <button class="dropbtn"><i class="material-icons md-36">folder</i></button>
             <div class="dropdown-content">
 				<a onclick="showPicker()">Load</a>
                 <a onclick="fileSave()">Save</a>
@@ -59,30 +60,33 @@
             </div>
             </div></li>
         <li><div class="dropdown">
-            <button class="dropbtn">Edit</button>
+            <button class="dropbtn"><i class="material-icons md-36">edit</i></button>
             <div class="dropdown-content">
                 <a href="#">Button</a>
             </div>
             </div></li>
         <li><div class="dropdown">
-            <button class="dropbtn">Code</button>
+            <button class="dropbtn"><i class="material-icons md-36">code</i></button>
             <div class="dropdown-content">
                 <a href="#">Button</a>
             </div>
             </div></li>
         <li><div class="dropdown">
-            <button class="dropbtn">Options</button>
+            <button class="dropbtn"><i class="material-icons md-36">settings</i></button>
             <div class="dropdown-content">
                 <a class="button lights">Background</a>
             </div>
             </div></li>
+        <div class="centericon">
+            <i class="material-icons md-48">donut_small</i>
+        </div>
         <ul style="float:right;list-style-type:none;">
         <li> <g:hangout render="createhangout"></g:hangout></li>
         <li><div class="dropdown">
-            <button class="dropbtn">Share</button>
+            <button class="dropbtn"><i class="material-icons md-36">person_add</i></button>
             </div></li>
 		<li><div class="dropdown">
-            <button class="dropbtn" onclick="signOut()">Sign Out</button>
+            <button class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
             </div></li>
         </ul>
     </ul>
