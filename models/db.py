@@ -162,3 +162,5 @@ class GoogleAccount(OAuthAccount):
 auth.settings.actions_disabled=['register','change_password','request_reset_password','profile']
 
 auth.settings.login_form = GoogleAccount()
+
+auth.settings.update_fields = ['username']
