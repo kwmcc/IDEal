@@ -121,7 +121,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
   padding-bottom: 30px; padding-right: 30px;*/
   margin-bottom: 0; margin-right: 0;
   padding-bottom: 0; padding-right: 0;
-  height: 80%;
+  height: 97%;
   outline: none; /* Prevent dragging from highlighting the element */
   position: relative;
   -moz-box-sizing: content-box;
