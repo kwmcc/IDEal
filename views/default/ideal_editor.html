@@ -24,14 +24,36 @@
 
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
-  </head>
+  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+
+  <style>
+    #picker-box{
+      position: fixed;
+      z-index: 2;
+      margin-left: -277px;
+      background-color: #ffffff;
+      height: 518px;
+      width: 555px;
+      left: 50%;
+      top: 150px;
+      font-size: 15px;
+      color: #2f476b;
+      display: none;
+    }
+
+    #picker-title{
+      text-align: center;
+    }
+  </style>
+  <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
+</head>
+
 <body class="cm-s-default">
     <ul>
         <li><div class="dropdown">
             <button class="dropbtn">File</button>
             <div class="dropdown-content">
+				<a onclick="showPicker()">Load</a>
                 <a onclick="fileSave()">Save</a>
                 <a onclick="fileDownload()">Download</a>
             </div>
@@ -59,15 +81,51 @@
         <li><div class="dropdown">
             <button class="dropbtn">Share</button>
             </div></li>
+		<li><div class="dropdown">
+            <button class="dropbtn" onclick="signOut()">Sign Out</button>
+            </div></li>
         </ul>
     </ul>
     
-  <div id="controls">
-    <h3 id="saved" style="color:white;"> </h3>
-  </div>
+	<div id="controls">
+		<h3 id="saved" style="color:white;"> </h3>
+	</div>
 
-  <textarea name="code" id="code"></textarea>
-  <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+	<!-- <button id="signout" onclick="signOut()">SIGN OUT</button>
+	<textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+
+	<button id="load" onclick="showPicker()">LOAD</button> -->
+
+	<textarea name="code" id="code"></textarea>
+
+	<div id="picker-box">
+		<button onclick="hidePicker()">close</button>
+		<div id="picker-title">Load A File</div>
+		<div id="picker-list">
+			<ul>
+				{{for file in files:}}
+				{{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+				{{pass}}
+			</ul>
+		</div>
+	</div>
+    
+  <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+  <script>
+      function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+              console.log('User signed out.');
+              fileSave()
+              document.location.href = "http://localhost:8000/ideal/default/index";
+          });
+      }
+      function onLoad() {
+          gapi.load('auth2', function() {
+              gapi.auth2.init();
+          });
+      }
+  </script>
 
 <script>
 
@@ -100,6 +158,13 @@
         fileSave();
         var blob = new Blob([editor.getValue()], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "{{=filename}}");
+    }
+    function showPicker(){
+        document.getElementById("picker-box").style.display = "block";
+    }
+
+    function hidePicker(){
+        document.getElementById("picker-box").style.display = "none";
     }
 
     /*==========  Autoload Functionality ==========*/

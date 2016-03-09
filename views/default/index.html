@@ -33,7 +33,8 @@
 #splash-sign-in{
     margin:auto;
     text-align:center;
-    background-color:#8b0000;
+    /*background-color:#8b0000;*/
+	background-color:#C0C0C0;
     width:206px;
     margin-top:90px;
 }
@@ -42,6 +43,7 @@
     width:650px;
     padding-top:100px;
     font-size:20px;
+	text-align: center;
 }
     
 #splash-lower-left{
@@ -57,11 +59,11 @@
 <body bgcolor="#C0C0C0">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <div id="splash-outer">
-          <div id="splash-title"><span id="splash-title-ide">IDE</span>AL</div>
-          <div id="splash-sub-title">Collaborative Code Editor</div>
-          <div id="splash-sign-in">
-              <div class="g-signin2" data-width="206px" data-onsuccess="onSignIn"></div>
-              <script>
+        <div id="splash-title"><span id="splash-title-ide">IDE</span>AL</div>
+        <div id="splash-sub-title">Collaborative Code Editor</div>
+        <div id="splash-sign-in">
+            <div class="g-signin2" data-width="206px" data-onsuccess="onSignIn"></div>
+            <script>
                 function onSignIn(googleUser) {
                   var profile = googleUser.getBasicProfile();
                   console.log('ID: ' + profile.getId());
@@ -69,7 +71,16 @@
                   console.log('Image URL: ' + profile.getImageUrl());
                   console.log('Email: ' + profile.getEmail());
                 }
-              </script>
+            </script>
+			<button id="signout" onclick="signOut()" button-width="206px">Sign Out Google Account</button>
+			<script>
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+					console.log('User signed out.');
+				});
+			}
+			</script>
           </div>
           <div id="splash-lower-area">
               <div id="splash-lower-left">
@@ -81,5 +92,26 @@
                   <div>Save and sync with Google Drive</div>
               </div>
           </div>
-    </div>
+    <!-- <div class="centered">
+		<a href="/IDEal/default/project_init"><img src="/IDEal/static/templogo3.png" width="206px" height="97px" alt="Centered Image"/></a>
+		<div class="g-signin2" data-width="206px" data-onsuccess="onSignIn"></div>
+		<script>
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			console.log('ID: ' + profile.getId());
+			console.log('Name: ' + profile.getName());
+			console.log('Image URL: ' + profile.getImageUrl());
+			console.log('Email: ' + profile.getEmail());
+		}
+		</script>
+		<button id="signout" onclick="signOut()" button-width="206px">Sign Out Google Account</button>
+		<script>
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
+		}
+		</script>
+    </div> -->
 </body>
