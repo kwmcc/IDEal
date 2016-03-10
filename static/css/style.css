@@ -435,7 +435,9 @@ div.CodeMirror {
   background-position: 8px;
 }
 
-ul {
+/*-------- Menu Bar Styles --------*/
+
+ul#menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -444,12 +446,12 @@ ul {
     background-color: #3f97db;
 }
 
-li {
+li#mb {
     float: left;
-    border-right: 1px solid #0868b2
+    border-right: 1px solid #0868b2;
 }
 
-li:last-child {
+li#mb:last-child {
     border-right: none;
 }
 
@@ -479,6 +481,7 @@ li:last-child {
     text-align: left;
     font-size: 16px;
     box-shadow: inset 8px 0px 0px 0px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .dropdown-content a {
@@ -487,6 +490,7 @@ li:last-child {
     text-decoration: none;
     display: block;
     text-align: left;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .dropdown-content a:hover {
@@ -499,13 +503,6 @@ li:last-child {
 
 .dropdown:hover .dropbtn {
     background-color: #63ade5;
-}
-
-#controls {
-  position: fixed;
-  top: 50px;
-  right: 15px;
-  z-index: 999;
 }
 
 .centericon {
@@ -522,12 +519,65 @@ li:last-child {
     filter:opacity(60%);
 }
 
-/*div.g-hangout {
+#controls {
+  position: fixed;
+  top: 50px;
+  right: 15px;
+  z-index: 999;
+}
+
+/*-------- Picker Styles --------*/
+
+#picker {
     position: fixed;
-    top: 0;
-    left: 0;
-    border: 3px solid #ff0000
-}*/
+    z-index: 2;
+    margin-left: -277px;
+    background-color: #808080;
+    height: 500px;
+    width: 500px;
+    left: 50%;
+    top: 150px;
+    font-size: 18px;
+    color: #2f476b;
+    display: none;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16),
+        0 3px 6px rgba(0,0,0,0.23);
+}
+
+#picker-title {
+    display: block;
+    text-align: left;
+    padding: 0 0 0 10px;
+    color: white;
+    font-size: 24pt;
+    background-color: #3f97db;
+    height: 50px;
+}
+
+ul#filelist {
+    list-style-type: none;
+}
+
+ul#filelist a {
+    color: white;
+    text-decoration: none;
+}
+
+#pickclose {
+    display: inline-block;
+    background-color: #3f97db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+
+#pickclose:hover {
+    background-color: #63ade5;
+}
 
 /*-------- Google Icon Fonts Styles --------*/
 
