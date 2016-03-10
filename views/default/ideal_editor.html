@@ -36,9 +36,9 @@
         <li id="mb"><div class="dropdown">
             <button title="File" class="dropbtn"><i class="material-icons md-36">folder</i></button>
             <div class="dropdown-content">
-				<a title="Load file from server" onclick="showPicker()">Load</a>
-                <a title="Save to the server" onclick="fileSave()">Save</a>
-                <a title="Download to local computer" onclick="fileDownload()">Download</a>
+				<a title="Load file from server" onclick="showPicker()"><i class="material-icons">cloud_download</i>Load</a>
+                <a title="Save to the server" onclick="fileSave()"><i class="material-icons">cloud_upload</i>Save</a>
+                <a title="Download to local computer" onclick="fileDownload()"><i class="material-icons">file_download</i>Download</a>
             </div>
             </div></li>
         <li id="mb"><div class="dropdown">
@@ -67,7 +67,7 @@
             <!--<i class="material-icons md-48">donut_small</i>-->
             <img id="icon" src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
         </div>
-        
+        <div id="hangout"></div>
         <ul style="float:right;list-style-type:none;">
         <li id="mb" style="border-left: 1px solid #0868b2;"><div class="dropdown">
             <button title="Share" class="dropbtn"><i class="material-icons md-36">person_add</i></button>
@@ -82,7 +82,7 @@
 		<h3 id="saved" style="color:white;"></h3>
 	</div>
 
-    <div id="hangout"></div>
+    
     <script>
         gapi.hangout.render('hangout', { 'render': 'createhangout', widget_size: 72 });
     </script>

@@ -477,7 +477,7 @@ li#mb:last-child {
     position: absolute;
     /*left: 0;*/
     background-color: #3f97db;
-    min-width: 160px;
+    min-width: 153px;
     text-align: left;
     font-size: 16px;
     box-shadow: inset 8px 0px 0px 0px rgba(0,0,0,0.2);
@@ -594,3 +594,6 @@ ul#filelist a {
 /* Rules for using icons as white on a dark background. */
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* For small icons used in menus, pad to the left to space against words. */
+.material-icons { padding: 0 15px 0 0; }
