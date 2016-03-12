@@ -45,11 +45,11 @@
         <li id="mb"><div class="dropdown">
             <button title="Edit" class="dropbtn"><i class="material-icons md-36">edit</i></button>
             <div class="dropdown-content">
-                <a title="Undo" href="#"><i class="material-icons">undo</i>Undo</a>
-                <a title="Redo" href="#"><i class="material-icons">redo</i>Redo</a>
-                <a title="Copy" href="#"><i class="material-icons">content_copy</i>Copy</a>
-                <a title="Cut" href="#"><i class="material-icons">content_cut</i><span>Cut</span></a>
-                <a title="Paste" href="#"><i class="material-icons">content_paste</i>Paste</a>
+                <a title="Undo" href="#" class="material-icons md-light md-inactive"><i class="material-icons">undo</i>Undo</a>
+                <a title="Redo" href="#" class="material-icons md-light md-inactive"><i class="material-icons">redo</i>Redo</a>
+                <a title="Copy" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_copy</i>Copy</a>
+                <a title="Cut" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_cut</i><span>Cut</span></a>
+                <a title="Paste" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_paste</i>Paste</a>
             </div>
             </div></li>
         <!-- li id="mb"><div class="dropdown">
@@ -61,20 +61,20 @@
         <li id="mb"><div class="dropdown">
             <button title="Settings" class="dropbtn"><i class="material-icons md-36">settings</i></button>
             <div class="dropdown-content">
-                <a title="Change background color" class="button lights">Background</a>
+                <a title="Change background color" class="button lights"><i class="material-icons">lightbulb_outline</i>Background</a>
             </div>
             </div></li>
         <div class="centericon">
             <!--<i class="material-icons md-48">donut_small</i>-->
-            <img id="icon" src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
+            <img src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
         </div>
         <li><div id="hangout"></div></li>
         <ul style="float:right;list-style-type:none;">
         <li id="mb" style="border-left: 1px solid #0D47A1;"><div class="dropdown">
-            <button title="Share" class="dropbtn"><i class="material-icons md-36">person_add</i></button>
+            <button title="Share" class="dropbtn"><i class="material-icons md-36 md-light md-inactive">person_add</i></button>
             </div></li>
 		<li id="mb"><div class="dropdown">
-            <button title="Sign Out" class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
+            <button title="Sign Out" id="signout" class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
             </div></li>
         </ul>
     </ul>

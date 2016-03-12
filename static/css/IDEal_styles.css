@@ -30,6 +30,14 @@ li#mb:last-child {
     border-right: none;
 }
 
+li#mb li {
+    width: 100%;
+}
+
+ul#menu li a {
+    white-space:nowrap;
+}
+
 .dropbtn {
     display: inline-block;
     background-color: var(--main-color);
@@ -51,9 +59,9 @@ li#mb:last-child {
     position: absolute;
     /*left: 0;*/
     background-color: #2196f3;
-    min-width: 153px;
+    /*min-width: 153px;*/
     text-align: left;
-    font-size: 16px;
+    font-size: 24px;
     box-shadow: inset 8px 0px 0px 0px #1976D2;
     cursor: pointer;
 }
@@ -88,10 +96,10 @@ li#mb:last-child {
 }
 
 #controls {
-  position: fixed;
-  top: -15px;
-  right: 115px;
-  z-index: 999;
+    position: fixed;
+    top: -15px;
+    right: 115px;
+    z-index: 999;
 }
 
 #saved {
@@ -102,6 +110,10 @@ li#mb:last-child {
 #hangout {
     position: fixed;
     padding-top: 10px;
+}
+
+#signout {
+    background-color: var(--alert-color);
 }
 
 /*-------- Picker Styles --------*/
