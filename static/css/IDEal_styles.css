@@ -1,4 +1,6 @@
-/* Define color scheme */
+/*-------- Color Schemes --------*/
+
+/* Main blue scheme */
 :root {
     --main-color: #2196F3; /* Material Blue 500 */
     --dropdown-color: #2196F3; /* Material Blue 500 */
@@ -8,6 +10,20 @@
     --alert-color: #F44336; /* Material Red 500 */
     --alert-hover-color: #D32F2F; /* Material Red 700 */
     --background-color: #BDBDBD; /* Material Grey 400 */
+    --icon-color: white;
+}
+
+/* Experimental Amber Scheme */
+/*:root {
+    /*--main-color: #FFC107; /* Material Amber 500 */
+    /*--dropdown-color: #FFC107; /* Material Amber 500 */
+    /*--main-hover-color: #FFD54F; /* Material Amber 300 */
+    /*--accent-color: #FFD54F; /* Material Amber 300 */
+    /*--divider-color: #FFA000; /* Material Amber 700 */
+    /*--alert-color: #009688; /* Material Teal 500 */
+    /*--alert-hover-color: #00695C; /* Material Teal 800 */
+    /*--background-color: #BDBDBD; /* Material Grey 400 */
+    /*--icon-color: black;
 }
 
 /*-------- Menu Bar Styles --------*/
@@ -41,7 +57,7 @@ ul#menu li a {
 .dropbtn {
     display: inline-block;
     background-color: var(--main-color);
-    color: white;
+    color: var(--icon-color);
     border: none;
     cursor: pointer;
     height: 50px;
@@ -58,7 +74,7 @@ ul#menu li a {
     display: none;
     position: absolute;
     /*left: 0;*/
-    background-color: #2196f3;
+    background-color: var(--dropdown-color);
     /*min-width: 153px;*/
     text-align: left;
     font-size: 24px;
@@ -67,7 +83,7 @@ ul#menu li a {
 }
 
 .dropdown-content a {
-    color: white;
+    color: var(--icon-color);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
