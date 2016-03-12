@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IDEal Collaborative Code Editor</title>
+  <title>IDEal</title>
   <link rel="stylesheet" href="../static/css/reset.css" type="text/css">
   <link rel="stylesheet" href="../static/css/style.css" type="text/css">
+  <link rel="stylesheet" href="../static/css/IDEal_styles.css" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300&subset=latin,greek' rel='stylesheet' type='text/css'>
   <script src="../static/js/vendor/codemirror.js"></script>
   <script src="../static/js/vendor/loadmode.js"></script>
   <script src="../static/js/vendor/meta.js"></script>
@@ -24,54 +27,80 @@
 
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="https://www.gstatic.com/realtime/realtime-client-utils.js"></script>
-  <g:hangout render="createhangout"></g:hangout>
-  <style>
-    #picker-box{
-      position: fixed;
-      z-index: 2;
-      margin-left: -277px;
-      background-color: #ffffff;
-      height: 518px;
-      width: 555px;
-      left: 50%;
-      top: 150px;
-      font-size: 15px;
-      color: #2f476b;
-      display: none;
-    }
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    #picker-title{
-      text-align: center;
-    }
-  </style>
   <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
 </head>
-    
+
 <body class="cm-s-default">
-  <div id="controls">
-    <h3 id="saved" style="color:white;"> </h3>
-    <a href="#" class="button lights" title="toggle the lights"></a>
-  </div>
+    <ul id="menu">
+        <li id="mb"><div class="dropdown">
+            <button title="File" class="dropbtn"><i class="material-icons md-36">folder</i></button>
+            <div class="dropdown-content">
+				<a title="Load file from server" onclick="showPicker()"><i class="material-icons">cloud_download</i>Load</a>
+                <a title="Save to the server" onclick="fileSave()"><i class="material-icons">cloud_upload</i>Save</a>
+                <a title="Download to local computer" onclick="fileDownload()"><i class="material-icons">file_download</i>Download</a>
+            </div>
+            </div></li>
+        <li id="mb"><div class="dropdown">
+            <button title="Edit" class="dropbtn"><i class="material-icons md-36">edit</i></button>
+            <div class="dropdown-content">
+                <a title="Undo" href="#" class="material-icons md-light md-inactive"><i class="material-icons">undo</i>Undo</a>
+                <a title="Redo" href="#" class="material-icons md-light md-inactive"><i class="material-icons">redo</i>Redo</a>
+                <a title="Copy" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_copy</i>Copy</a>
+                <a title="Cut" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_cut</i><span>Cut</span></a>
+                <a title="Paste" href="#" class="material-icons md-light md-inactive"><i class="material-icons">content_paste</i>Paste</a>
+            </div>
+            </div></li>
+        <!-- li id="mb"><div class="dropdown">
+            <button title="Code" class="dropbtn"><i class="material-icons md-36">code</i></button>
+            <div class="dropdown-content">
+                <a href="#">Button</a>
+            </div>
+            </div></li> -->
+        <li id="mb"><div class="dropdown">
+            <button title="Settings" class="dropbtn"><i class="material-icons md-36">settings</i></button>
+            <div class="dropdown-content">
+                <a title="Change background color" class="button lights"><i class="material-icons">lightbulb_outline</i>Background</a>
+            </div>
+            </div></li>
+        <div class="centericon">
+            <!--<i class="material-icons md-48">donut_small</i>-->
+            <img src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
+        </div>
+        <li><div id="hangout"></div></li>
+        <ul style="float:right;list-style-type:none;">
+        <li id="mb" style="border-left: 1px solid #0D47A1;"><div class="dropdown">
+            <button title="Share" class="dropbtn"><i class="material-icons md-36 md-light md-inactive">person_add</i></button>
+            </div></li>
+		<li id="mb"><div class="dropdown">
+            <button title="Sign Out" id="signout" class="dropbtn" onclick="signOut()"><i class="material-icons md-36">launch</i></button>
+            </div></li>
+        </ul>
+    </ul>
 
-  <textarea name="code" id="code"></textarea>
-  <button id="save" onclick="fileSave()">SAVE</button>
-  <button id="download" onclick="fileDownload()">DOWNLOAD</button>
-  <button id="signout" onclick="signOut()">SIGN OUT</button>
-  <textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+	<div id="controls">
+		<h3 id="saved" style="color:white;"></h3>
+	</div>
 
-  <button id="load" onclick="showPicker()">LOAD</button>
+    
+    <script>
+        gapi.hangout.render('hangout', { 'render': 'createhangout', widget_size: 72 });
+    </script>
 
-  <div id="picker-box">
-      <button onclick="hidePicker()">close</button>
-      <div id="picker-title">Load A File</div>
-      <div id="picker-list">
-          <ul>
-           {{for file in files:}}
-           {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
-           {{pass}}
-          </ul>
-      </div>
-  </div>
+	<textarea hidden name="filename" id="filename"> {{=filename}} </textarea>
+
+	<textarea name="code" id="code"></textarea>
+
+	<div id="picker">
+		<button id="pickclose" title="Close this window" onclick="hidePicker()"><i class="material-icons md-36">close</i></button>
+        <div id="picker-title">Load A File</div>
+        <ul id="filelist">
+            {{for file in files:}}
+            {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
+            {{pass}}
+        </ul>
+	</div>
     
   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
   <script>
@@ -123,11 +152,11 @@
         saveAs(blob, "{{=filename}}");
     }
     function showPicker(){
-        document.getElementById("picker-box").style.display = "block";
+        document.getElementById("picker").style.display = "block";
     }
 
     function hidePicker(){
-        document.getElementById("picker-box").style.display = "none";
+        document.getElementById("picker").style.display = "none";
     }
 
     /*==========  Autoload Functionality ==========*/

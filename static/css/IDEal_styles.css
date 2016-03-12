@@ -1,7 +1,281 @@
-.centered {
-        position: absolute;
-        vertical-align: middle;
-        line-height: 20px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);}
+/*-------- Color Schemes --------*/
+
+/* Main blue scheme */
+:root {
+    --main-color: #2196F3; /* Material Blue 500 */
+    --dropdown-color: #2196F3; /* Material Blue 500 */
+    --main-hover-color: #1976D2; /* Material Blue 700 */
+    --accent-color: #1976D2; /* Material Blue 700 */
+    --divider-color: #0D47A1; /* Material Blue 900 */
+    --alert-color: #F44336; /* Material Red 500 */
+    --alert-hover-color: #D32F2F; /* Material Red 700 */
+    --background-color: #BDBDBD; /* Material Grey 400 */
+    --icon-color: white;
+}
+
+/* Experimental Amber Scheme */
+/*:root {
+    /*--main-color: #FFC107; /* Material Amber 500 */
+    /*--dropdown-color: #FFC107; /* Material Amber 500 */
+    /*--main-hover-color: #FFD54F; /* Material Amber 300 */
+    /*--accent-color: #FFD54F; /* Material Amber 300 */
+    /*--divider-color: #FFA000; /* Material Amber 700 */
+    /*--alert-color: #009688; /* Material Teal 500 */
+    /*--alert-hover-color: #00695C; /* Material Teal 800 */
+    /*--background-color: #BDBDBD; /* Material Grey 400 */
+    /*--icon-color: black;
+}
+
+/*-------- Menu Bar Styles --------*/
+
+ul#menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    overflow: visible;
+    background-color: var(--main-color);
+}
+
+li#mb {
+    float: left;
+    border-right: 1px solid var(--divider-color);
+}
+
+li#mb:last-child {
+    border-right: none;
+}
+
+li#mb li {
+    width: 100%;
+}
+
+ul#menu li a {
+    white-space:nowrap;
+}
+
+.dropbtn {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: var(--icon-color);
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 3;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /*left: 0;*/
+    background-color: var(--dropdown-color);
+    /*min-width: 153px;*/
+    text-align: left;
+    font-size: 24px;
+    box-shadow: inset 8px 0px 0px 0px #1976D2;
+    cursor: pointer;
+}
+
+.dropdown-content a {
+    color: var(--icon-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--main-hover-color);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: var(--main-hover-color);
+}
+
+.centericon {
+    position: fixed;
+    top: 2px;
+    left: 50%;
+    -webkit-filter:opacity(60%);
+    filter:opacity(60%);
+}
+
+#controls {
+    position: fixed;
+    top: -15px;
+    right: 115px;
+    z-index: 999;
+}
+
+#saved {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+}
+
+#hangout {
+    position: fixed;
+    padding-top: 10px;
+}
+
+#signout {
+    background-color: var(--alert-color);
+}
+
+/*-------- Picker Styles --------*/
+
+#picker {
+    position: fixed;
+    z-index: 2;
+    margin-left: -277px;
+    background-color: var(--background-color);
+    height: 500px;
+    width: 500px;
+    left: 50%;
+    top: 150px;
+    font-size: 18px;
+    display: none;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16),
+        0 3px 6px rgba(0,0,0,0.23);
+}
+
+#picker-title {
+    display: block;
+    text-align: left;
+    padding: 0 0 0 15px;
+    color: white;
+    font-size: 24pt;
+    background-color: var(--main-color);
+    height: 50px;
+    box-shadow: inset 8px 0px 0px 0px #1976D2;
+}
+
+ul#filelist {
+    list-style-type: none;
+}
+
+ul#filelist a {
+    color: black;
+    text-decoration: none;
+}
+
+#pickclose {
+    display: inline-block;
+    background-color: var(--alert-color); /* Material Red 500 */
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+
+#pickclose:hover {
+    background-color: var(--alert-hover-color);
+}
+
+/*-------- Index Page Styles --------*/
+    
+#splash-outer {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Open Sans', sans-serif;
+}
+
+#splash-title {
+    font-size: 150px;
+    font-variant: small-caps;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#splash-sub-title {
+    margin:auto;
+    text-align:center;
+    font-size:30px;
+}
+
+#splash-sign-in {
+    margin:auto;
+    /*text-align:center;*/
+    background-color: var(--background-color);
+    width:206px;
+    margin-top:90px;
+}
+
+#splash-lower-area {
+    width:650px;
+    padding-top:100px;
+    font-size:20px;
+    text-align: center;
+}
+
+#splash-lower-left {
+    float:left;
+    line-height:45px;
+}
+
+#splash-lower-right {
+    float:right;
+    line-height:45px;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--main-color);
+}
+
+#icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2px;
+    -webkit-filter:opacity(60%);
+    filter:opacity(60%);
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: var(--main-color);
+}
+
+
+/*-------- Google Icon Fonts Styles --------*/
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/* For small icons used in menus, pad to the left to space against words. */
+.material-icons { padding: 0 15px 0 0; }
