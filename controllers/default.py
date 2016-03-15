@@ -9,7 +9,7 @@ def index():
 @auth.requires_login()
 def project_init():
     files = db().select(db.files.ALL, orderby=db.files.filename)
-    form = FORM('Filename: ', INPUT(_name='name'), INPUT(_type='submit'))
+    form = FORM(INPUT(_name='name'), INPUT(_type='submit'))
     error = ''
     if form.accepts(request,session):
         # This code should check if the user has already saved a file with
