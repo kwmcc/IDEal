@@ -1,20 +1,37 @@
 <head>
-    <title>Enter your project title and extension below</title>
-    <LINK rel="stylesheet" type="text/css" href="../static/css/IDEal_styles.css" title="IDEal Styles" media="screen">
     <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></link>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css"></link>
+    <script>
+        $(function() {
+          $( "#dialog" ).dialog();
+        });
+    </script>
 </head>
+    
 <body>
-    <body bgcolor="#424242"></bgcolor>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <div class="centered">
-         <h1>Enter your project title and filetype extension</h1>
-         {{=error}}
+
+    <body bgcolor="#424242"></bgcolor>
+    
+    <div id="dialog" title="File Selection">
+      <table id="files">
+        <thead></thead>
+        <tbody>
+              {{for file in files:}}
+              <tr>
+                  <td>{{=A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename.strip(), 'load':'True'}))}}</td>
+            </tr>
+          {{pass}}
+        </tbody>
+      </table>
+      <br>
+      <hr>
+      <br>
+      <b>Create a new file:</b>
           {{=form}}
-          <h1>Files:</h1>
-          <ul>
-             {{for file in files:}}
-             {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename.strip(), 'load':'True'})))}}
-             {{pass}}
-        </ul>
+          {{=error}}
     </div>
 </body>
