@@ -95,7 +95,7 @@
 	<div id="picker">
 		<button id="pickclose" title="Close this window" onclick="hidePicker()"><i class="material-icons md-36">close</i></button>
         <div id="picker-title">Load A File</div>
-        <ul id="filelist">
+        <ul class="filelist">
             {{for file in files:}}
             {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename, 'load':'True'})))}}
             {{pass}}
