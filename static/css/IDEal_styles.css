@@ -34,12 +34,12 @@ ul#menu {
     padding: 0;
     height: 50px;
     overflow: visible;
-    background-color: var(--main-color);
+    background-color: #2196F3; /*var(--main-color);*/
 }
 
 li#mb {
     float: left;
-    border-right: 1px solid var(--divider-color);
+    border-right: 1px solid #0D47A1; /*var(--divider-color);*/
 }
 
 li#mb:last-child {
@@ -54,14 +54,21 @@ ul#menu li a {
     white-space:nowrap;
 }
 
+/* added probably to span the buttons as a backup for out-of-date browsers */
+/* .menu-bar {
+    width: 100%;
+    background-color: #2196F3; /*var(--dropdown-color);*/
+/*}*/
+
 .dropbtn {
     display: inline-block;
-    background-color: var(--main-color);
-    color: var(--icon-color);
+    background-color: #2196F3; /*var(--main-color);*/
+    color: white; /*var(--icon-color);*/
     border: none;
     cursor: pointer;
     height: 50px;
     width: 50px;
+    overflow: hidden;
 }
 
 .dropdown {
@@ -74,7 +81,7 @@ ul#menu li a {
     display: none;
     position: absolute;
     /*left: 0;*/
-    background-color: var(--dropdown-color);
+    background-color: #2196F3; /*var(--dropdown-color);*/
     /*min-width: 153px;*/
     text-align: left;
     font-size: 24px;
@@ -83,7 +90,7 @@ ul#menu li a {
 }
 
 .dropdown-content a {
-    color: var(--icon-color);
+    color: white; /*var(--icon-color);*/
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -92,7 +99,7 @@ ul#menu li a {
 }
 
 .dropdown-content a:hover {
-    background-color: var(--main-hover-color);
+    background-color: #1976D2; /*var(--main-hover-color);*/
 }
 
 .dropdown:hover .dropdown-content {
@@ -100,7 +107,7 @@ ul#menu li a {
 }
 
 .dropdown:hover .dropbtn {
-    background-color: var(--main-hover-color);
+    background-color: #1976D2; /*var(--main-hover-color);*/
 }
 
 .centericon {
@@ -129,7 +136,7 @@ ul#menu li a {
 }
 
 #signout {
-    background-color: var(--alert-color);
+    background-color: #F44336; /*var(--alert-color);*/
 }
 
 /*-------- Picker Styles --------*/
@@ -138,7 +145,7 @@ ul#menu li a {
     position: fixed;
     z-index: 2;
     margin-left: -277px;
-    background-color: var(--background-color);
+    background-color: #BDBDBD; /*var(--background-color);*/
     height: 500px;
     width: 500px;
     left: 50%;
@@ -156,40 +163,41 @@ ul#menu li a {
     padding: 0 0 0 15px;
     color: white;
     font-size: 24pt;
-    background-color: var(--main-color);
+    background-color: #2196F3; /*var(--main-color);*/
     height: 50px;
     box-shadow: inset 8px 0px 0px 0px #1976D2;
 }
 
-ul#filelist {
+ul.filelist {
     list-style-type: none;
 }
 
-ul#filelist a {
+ul.filelist a {
     color: black;
     text-decoration: none;
 }
 
 #pickclose {
     display: inline-block;
-    background-color: var(--alert-color); /* Material Red 500 */
+    background-color: #F44336; /*var(--alert-color);*/
     color: white;
     border: none;
     cursor: pointer;
     height: 50px;
     width: 50px;
     float: right;
+    overflow: hidden;
 }
 
 #pickclose:hover {
-    background-color: var(--alert-hover-color);
+    background-color: #D32F2F; /*var(--alert-hover-color);*/
 }
 
 /*-------- Index Page Styles --------*/
     
 #splash-outer {
     position: absolute;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: 'Open Sans', sans-serif;
@@ -203,34 +211,34 @@ ul#filelist a {
 }
 
 #splash-sub-title {
-    margin:auto;
-    text-align:center;
-    font-size:30px;
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
 }
 
 #splash-sign-in {
-    margin:auto;
+    margin: auto;
     /*text-align:center;*/
-    background-color: var(--background-color);
-    width:206px;
-    margin-top:90px;
+    background-color: #BDBDBD; /*var(--background-color);*/
+    width: 206px;
+    margin-top: 90px;
 }
 
 #splash-lower-area {
-    width:650px;
-    padding-top:100px;
-    font-size:20px;
+    width: 650px;
+    padding-top: 100px;
+    font-size: 20px;
     text-align: center;
 }
 
 #splash-lower-left {
-    float:left;
-    line-height:45px;
+    float: left;
+    line-height: 45px;
 }
 
 #splash-lower-right {
-    float:right;
-    line-height:45px;
+    float: right;
+    line-height: 45px;
 }
 
 #header {
@@ -239,7 +247,7 @@ ul#filelist a {
     left: 0;
     width: 100%;
     height: 50px;
-    background-color: var(--main-color);
+    background-color: #BDBDBD; /*var(--main-color);*/
 }
 
 #icon {
@@ -257,7 +265,20 @@ ul#filelist a {
     left: 0;
     width: 100%;
     height: 50px;
-    background: var(--main-color);
+    background: #2196F3; /*var(--main-color);*/
+}
+
+/*-------- Project Init Page Styles --------*/
+
+.start-project {
+    color: #2196F3;/*var(--main-color);*/
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+}
+
+.start-project h1{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
 }
 
 

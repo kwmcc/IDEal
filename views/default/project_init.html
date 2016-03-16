@@ -1,20 +1,27 @@
 <head>
     <title>Enter your project title and extension below</title>
-    <LINK rel="stylesheet" type="text/css" href="../static/css/IDEal_styles.css" title="IDEal Styles" media="screen">
+    <link rel="stylesheet" type="text/css" href="../static/css/IDEal_styles.css" title="IDEal Styles" media="screen">
     <meta name="google-signin-client_id" content="60604373576-t98rmnak6js171co8okc50009cverbmc.apps.googleusercontent.com">
 </head>
 <body>
-    <body bgcolor="#424242"></bgcolor>
+    <body bgcolor="#fff">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <div class="centered">
-         <h1>Enter your project title and filetype extension</h1>
-         {{=error}}
-          {{=form}}
-          <h1>Files:</h1>
-          <ul>
-             {{for file in files:}}
-             {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename.strip(), 'load':'True'})))}}
-             {{pass}}
+    <div id="header">
+        <div id="centericon">
+            <img id="icon" src="../static/icon.png" alt="IDEal Icon" style="width:57px;height:45px;">
+        </div>
+    </div>
+    <div class="start-project">
+        <center><br><br>
+        <h1>Enter your project title and filetype extension</h1>
+        {{=error}}
+        {{=form}}
+        <h1>Files:</h1>
+        <ul class="filelist">
+            {{for file in files:}}
+            {{=LI(A(file.filename, _href=URL("ideal_editor", vars={'name':file.filename.strip(), 'load':'True'})))}}
+            {{pass}}
         </ul>
+        </center>
     </div>
 </body>
