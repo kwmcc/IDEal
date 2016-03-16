@@ -1,0 +1,17 @@
+IDEal Test Document & Buglist
+IDEal Team: Chris Kyle, Greg Biles, David Sun, Max Kerscher-Santelli, Kevin McCotter, Cole Lampert
+
+Current Bugs:
+None?
+
+
+Incomplete Features:
+Share a document directly from application.
+Start Hangout and automatically invite current collaborators (must be shared manually)
+Line highlighting or cursor highlighting of collaborators
+Compilation in editor
+In-Editor bindings for Undo, Redo, Cut, Copy, and Paste
+
+Feature Choices:
+File saving is done to server because there was not enough time to implement both save to server 
+and save to Google Drive as the latter was proving to be quite complicated.
